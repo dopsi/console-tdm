@@ -1,0 +1,30 @@
+#compdef tdmctl
+
+_tdmctl(){
+	local curcontext="$curcontext" state line
+	typeset -A opt_args
+
+	_arguments \
+		'1: :->actions'\
+		'*: :->options'
+
+	case $state in
+	actions)
+		_arguments "1:Actions:(init list cache check default add enable disable)"
+		;;
+	*)
+		case $words[2] in
+		check|default|disable)
+			compadd "$@" $(tdmctl list)
+			;;
+		enable)
+			compadd "$@" $(tdmctl cache)
+			;;
+		*)
+			;;
+		esac
+		;;
+	esac
+}
+
+_tdmctl "$@"

@@ -1,0 +1,8 @@
+#Run these before WM/DE starts
+#
+#export LANG=zh_CN.UTF-8
+#fcitx
+#feh --bg-scale /path/to/wallpaper
+#
+#Then TDM exits to start your WM/DE
+
