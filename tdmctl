@@ -11,7 +11,7 @@ init(){
 	if [[ ! -d "${CONFDIR}" ]]; then
 		cp -Rv "${PREFIX}/share/tdm" "${CONFDIR}"
 	else
-		echo "Nothing done."
+		echo "Nothing done (configuration directory already present)."
 	fi
 }
 
@@ -25,6 +25,25 @@ usage(){
 	echo "tdmctl enable/disable <session>: enable/disable session."
 	exit
 }
+
+verify(){
+	if [ ! -d "${CONFDIR}" ] ; then
+		echo "Configuration directory '${CONFDIR}' does not exist"
+		echo "Please run 'tdmctl init' first"
+		exit
+	fi
+	if [ ! -d "${CONFDIR}/sessions" ] ; then
+		echo "Configuration directory '${CONFDIR}' does not exist"
+		echo "Please fix your configuration"
+		exit
+	fi
+	if [ ! -d "${CONFDIR}/extra" ] ; then
+		echo "Configuration directory '${CONFDIR}/extra' does not exist"
+		echo "Please fix your configuration"
+		exit
+	fi
+}
+		
 
 check(){
 	readlink "$1" || cat "$1"
@@ -42,17 +61,20 @@ case "$1" in
 		init "$@"
 		;;
 	list)
+		verify
 		for session in "$CONFDIR/sessions"/*; do
 			[ -x "$session" ] && echo $(basename "$session")
 		done
 		;;
 	cache)
+		verify
 		for file in "$CACHEDIR"/*; do
 			fn=$(basename "$file")
 			echo ${fn:1}
 		done
 		;;
 	default)
+		verify
 		if [ ! -n "$2" ]; then
 			echo "Checking $(readlink "$CONFDIR/default")"
 			check $(readlink "$CONFDIR/default")
@@ -64,6 +86,7 @@ case "$1" in
 		fi
 		;;
 	check)
+		verify
 		if [ ! -n "$2" ]; then
 			usage
 		fi
@@ -76,6 +99,7 @@ case "$1" in
 		fi
 		;;
 	add)
+		verify
 		[ -n "$3" ]||usage
 		if [[ "$4" == "X" || "$4" == "" ]]; then
 			ln -s "$3" "${CONFDIR}/sessions/$2"
@@ -86,6 +110,7 @@ case "$1" in
 		fi
 		;;
 	enable)
+		verify
 		if [ -f "${CACHEDIR}/X$2" ]; then
 			cp -v "${CACHEDIR}/X$2" "${CONFDIR}/sessions/$2"
 		fi
@@ -94,6 +119,7 @@ case "$1" in
 		fi
 		;;
 	disable)
+		verify
 		if [ ! -d "${CACHEDIR}" ]; then
 			mkdir -p "${CACHEDIR}"
 		fi
