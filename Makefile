@@ -26,4 +26,5 @@ scripts: tdmexit tdminit
 	$(MKDIR) $(PREFIX)/share/tdm
 	$(CP) $^ $(PREFIX)/share/tdm
 	$(MKDIR) $(PREFIX)/share/tdm/sessions
+	$(MKDIR) $(PREFIX)/share/tdm/extra
 	$(SH) ./links.sh /usr/bin $(PREFIX)/share/tdm/sessions
