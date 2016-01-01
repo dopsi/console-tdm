@@ -1,0 +1,50 @@
+.TH tdm 1
+.SH NAME
+tdm \- bash program similar to a display manager
+.SH SYNOPSIS
+.B
+tdm
+[\fB--xstart\fR]
+.TP
+.B
+tdmctl
+\fICOMMAND\fR [\fIARGS\fR]
+.SH DESCRIPTION
+.BR tdm (1)
+is a
+.BR bash (1)
+program that can be executed to mimic the functionnality of a display manager. 
+The program will display a list of available sessions (represented by symlinks 
+to various programs or scripts).
+.SH COMMANDS
+.TP
+.BR init
+initialize the config directory.
+.TP
+.BR list
+list available X sessions.
+.TP
+.BR cache
+list cached files.
+.TP
+.BR check " " \fISESSION\fR
+see what <session> is.
+.TP
+.BR default " " [\fISESSION\fR]
+.br
+show/set default X session.
+.TP
+.BR add " " \fINAME\fR " " \fIPATH\fR " " [\fICATEGORY\fR]
+add a session.
+.TP
+.BR enable " " \fISESSION\fR
+enable \fISESSION\fR
+.TP
+.BR disable " " \fISESSION\fR
+disable \fISESSION\fR
+.SH FILES AND DIRECTORIES
+.BR ~/.tdm/tdminit
+commands executed at login
+.BR ~/.tdm/tdmexit
+commands executed before the X server (or extra session) is started
+.SH SEE ALSO
