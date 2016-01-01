@@ -111,10 +111,10 @@ case "$1" in
 		;;
 	enable)
 		verify
-		if [ -f "${CACHEDIR}/X$2" ]; then
-			cp -v "${CACHEDIR}/X$2" "${CONFDIR}/sessions/$2"
+		if [ -L "${CACHEDIR}/X$2" ]; then
+			mv -v "${CACHEDIR}/X$2" "${CONFDIR}/sessions/$2"
 		fi
-		if [ -f "${CACHEDIR}/E$2" ]; then
+		if [ -L "${CACHEDIR}/E$2" ]; then
 			mv -v "${CACHEDIR}/E$2" "${CONFDIR}/extra/$2"
 		fi
 		;;
@@ -124,11 +124,11 @@ case "$1" in
 			mkdir -p "${CACHEDIR}"
 		fi
 # backup to cache
-		if [ -f "${CONFDIR}/sessions/$2" ]; then
+		if [ -L "${CONFDIR}/sessions/$2" ]; then
 			mv -v "${CONFDIR}/sessions/$2" "${CACHEDIR}/X$2"
 		fi
-		if [ -f "${CONFDIR}/extra/$2" ]; then
-			mv -v "${CONFDIR}/extra/$2" "${CONFDIR}/E$2"
+		if [ -L "${CONFDIR}/extra/$2" ]; then
+			mv -v "${CONFDIR}/extra/$2" "${CACHEDIR}/E$2"
 		fi
 		;;
 	*)

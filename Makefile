@@ -8,7 +8,7 @@ all: none
 none:
 	@echo "Nothing to be done, run `make install` instead"
 
-install: bin bashcomp zshcomp scripts
+install: bin bashcomp zshcomp scripts doc
 
 bin: tdm tdmctl
 	$(MKDIR) $(PREFIX)/bin
@@ -28,3 +28,8 @@ scripts: tdmexit tdminit
 	$(MKDIR) $(PREFIX)/share/tdm/sessions
 	$(MKDIR) $(PREFIX)/share/tdm/extra
 	$(SH) ./links.sh /usr/bin $(PREFIX)/share/tdm/sessions
+
+doc: tdm.1
+	$(MKDIR) $(PREFIX)/share/man/man1
+	$(CP) $^ $(PREFIX)/share/man/man1
+	ln -s $^ $(PREFIX)/share/man/man1/tdmctl.1
