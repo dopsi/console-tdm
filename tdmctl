@@ -17,7 +17,7 @@ init(){
 
 usage(){
 	echo "tdmctl init: initialize the config directory."
-	echo "tdmctl list: list available X sessions."
+	echo "tdmctl list: list available sessions  (X and extra)."
 	echo "tdmctl cache: list cached files."
 	echo "tdmctl check <session>: see what <session> is."
 	echo "tdmctl default [session]: show/set default X session."
@@ -64,6 +64,9 @@ case "$1" in
 		verify
 		for session in "$CONFDIR/sessions"/*; do
 			[ -x "$session" ] && echo $(basename "$session")
+		done
+		for session in "$CONFDIR/extra"/*; do
+			[ -x "$session" ] && echo "extra/$(basename "$session")"
 		done
 		;;
 	cache)
