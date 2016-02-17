@@ -112,6 +112,16 @@ case "$1" in
 			usage
 		fi
 		;;
+	remove)
+		verify
+		[ -n "$2" ] || usage
+		if [ -L "${CONFDIR}/sessions/$2" ]; then
+			rm -v "${CONFDIR}/sessions/$2"
+		fi
+		if [ -L "${CONFDIR}/extra/$2" ]; then
+			rm -v "${CONFDIR}/extra/$2"
+		fi
+		;;
 	enable)
 		verify
 		if [ -L "${CACHEDIR}/X$2" ]; then
