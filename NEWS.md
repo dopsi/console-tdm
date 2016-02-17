@@ -1,6 +1,6 @@
 # News
 
-## (unreleased) [v1.1.0] No date
+## [v1.1.0] 2016-02-17
 
 ### New features
 
