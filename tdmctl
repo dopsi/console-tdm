@@ -22,6 +22,7 @@ usage(){
 	echo "tdmctl check <session>: see what <session> is."
 	echo "tdmctl default [session]: show/set default X session."
 	echo "tdmctl add <name> <path> [X(default)/extra]: add a session."
+	echo "tdmctl remove <name>"
 	echo "tdmctl enable/disable <session>: enable/disable session."
 	exit
 }
