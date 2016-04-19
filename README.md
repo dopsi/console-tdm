@@ -3,12 +3,12 @@ tdm
 
 This is a fork of the TDM display manager program by *mytbk*.
 The original source can be found at 
-[Gitcafé](https://gitcafe.com/mytbk/console-tdm).
+[here](https://github.com/mytbk/console-tdm).
 
-Versionning
+Versioning
 -----------
 
-This project follows the semantic versionning guidelines provided at
+This project follows the semantic versioning guidelines provided at
 [semver.org](http://semver.org/) with versions numbered as `MAJOR.MINOR.
 REVISION` :
 
