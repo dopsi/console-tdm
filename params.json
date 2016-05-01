@@ -1,6 +1,0 @@
-{
-  "name": "Console-tdm",
-  "tagline": "Console display manager based on CDM",
-  "body": "This program is a session selector written in bash, with similar functionnalities to CDM.\r\n\r\nThis is a fork of the TDM display manager program by [mytbk](https://github.com/mytbk).\r\nThe original source can be found [here](https://github.com/mytbk/console-tdm).",
-  "note": "Don't delete this file! It's used internally to help with page regeneration."
-}
