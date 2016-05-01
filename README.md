@@ -15,6 +15,13 @@ Python 3, which is a robust language, well fitted for this kind of tasks.
 *console-tdm* will be a package, with various modules to handle the various 
 tasks now handled by `tdm`, `tdmctl`, `tdminit` and `tdmexit`.
 
+Configurations files will be in JSON format, in the file `~/.config/tdm`.
+A migration tool will be included.
+
+This Python based version will require :
+
+* `pythondialog` for the interface
+
 Versioning
 -----------
 
