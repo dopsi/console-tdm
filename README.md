@@ -5,6 +5,16 @@ This is a fork of the TDM display manager program by *mytbk*.
 The original source can be found at 
 [here](https://github.com/mytbk/console-tdm).
 
+Port to Python
+--------------
+
+Shell script is known for its vulnerabilities and few security systems.
+This is why I decided it would be best for this program to be ported to 
+Python 3, which is a robust language, well fitted for this kind of tasks.
+
+*console-tdm* will be a package, with various modules to handle the various 
+tasks now handled by `tdm`, `tdmctl`, `tdminit` and `tdmexit`.
+
 Versioning
 -----------
 
