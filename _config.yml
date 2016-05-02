@@ -11,7 +11,7 @@ email: dopsi.dev@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   This is a fork of console-tdm by mytbk. console-tdm aims to reproduce the 
   functionnality of a traditionnal display manager using only console tools.
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/console-tdm" # the subpath of your site, e.g. /blog
 url: "http://dopsi.github.io" # the base hostname & protocol for your site
 #twitter_username: jekyllrb
 github_username:  dopsi
