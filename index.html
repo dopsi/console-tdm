@@ -14,6 +14,10 @@ layout: default
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
+	<p>
+	  {{ post.content | strip_html | truncatewords:75}}<br/>
+	  <small><a href="{{ post.url | prepend: site.baseurl }}">Read more...</a></small>
+	</p>
       </li>
     {% endfor %}
   </ul>
