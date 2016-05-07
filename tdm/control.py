@@ -301,7 +301,7 @@ def get(priority=None):
     if priority:
         for i in priority:
             try:
-                rl.append(TdmHandler.__subclasses__[i]())
+                rl.append(TdmHandler.__subclasses__()[i]())
             except TypeError:
                 rl.append(None)
     else:
