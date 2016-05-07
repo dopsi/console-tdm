@@ -77,9 +77,9 @@ class TdmHandler(ABC):
         pass
 
     @abstractmethod
-    def delete(self, name, pprint=False, dryrun=False):
+    def remove(self, name, pprint=False, dryrun=False):
         """
-        Delete a session.
+        Remove a session.
 
         name should be the name of the session.
 
@@ -213,16 +213,16 @@ class TdmHandlerV1(TdmHandler):
         else:
             raise ValueError('Category '+category+' does not exist')
 
-    def delete(self, name, pprint=False, dryrun=False):
+    def remove(self, name, pprint=False, dryrun=False):
         if os.path.join(self.confdir, 'sessions', name):
             if pprint:
-                print('Delete "'+os.path.join(self.confdir, 'sessions', name)+'"')
+                print('Remove "'+os.path.join(self.confdir, 'sessions', name)+'"')
             if not dryrun:
                 os.remove(os.path.join(self.confdir, 'sessions', name))
 
         elif os.path.join(self.confdir, 'sessions', name):
             if pprint:
-                print('Delete "'+os.path.join(self.confdir, 'sessions', name)+'"')
+                print('Remove "'+os.path.join(self.confdir, 'sessions', name)+'"')
             if not dryrun:
                 os.remove(os.path.join(self.confdir, 'sessions', name))
 
@@ -277,12 +277,17 @@ class TdmHandlerV1(TdmHandler):
         
         return False
 
-    def init(self, force=False):
+    def init(self, force=False, pprint=False):
         if force and os.path.exists(self.confdir):
+            if pprint:
+                print('Removed '+self.confdir)
             shutil.rmtree(self.confdir)
 
         if not os.path.exists(self.confdir):
-            shutil.copytree(os.path.join(self._prefix,'share/tdm'), self.confdir)
+            if pprint:
+                print('Installed new configuration (version 1) in '+self.confdir)
+            shutil.copytree(os.path.join(self._prefix,'share/tdm'), self.confdir, 
+                    symlinks=True, ignore_dangling_symlinks=True)
         
 
     def verify(self, pprint=False):
@@ -315,7 +320,7 @@ class TdmHandlerV2(TdmHandler):
         """
         pass
 
-def get(priority=None):
+def get(priority=None, init=False):
     """
     Get the Tdm Handle for the current installation
     """
@@ -335,7 +340,7 @@ def get(priority=None):
                 rl.append(None)
 
     for h in rl:
-        if h and h.verify():
+        if h and (h.verify() or init):
             return h
 
     return None
