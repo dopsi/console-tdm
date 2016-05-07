@@ -133,6 +133,18 @@ class TdmHandler(ABC):
         """
         pass
 
+    @abstractmethod
+    def default(self, name=None, pprint=False):
+        """
+        Check or set the default session.
+
+        If name is None the default is shown otherwise it is
+        set.
+        
+        If pprint is True, the result of the operation will be printed out.
+        """
+        pass
+
 class TdmHandlerV1(TdmHandler):
     """
     This is a TdmHandler implementation to support a version 1 installation (i.e. in 
@@ -284,6 +296,17 @@ class TdmHandlerV1(TdmHandler):
             return False
 
         return True
+
+    def default(self, name=None, pprint=False):
+        if name:
+            # Set the default
+            value = name
+        else:
+            value = os.path.basename(os.readlink(os.path.join(self.confdir, 'default')))
+            if pprint:
+                print(value)
+
+        return value
 
 class TdmHandlerV2(TdmHandler):
     def __init__(self):
