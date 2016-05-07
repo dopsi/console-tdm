@@ -1,6 +1,6 @@
 """
-This module is the TDM control module, which does select the
-session which will run.
+This module is the TDM control module, which does perform the
+operations that were part of tdmctl(1).
 """
 
 from abc import ABC, abstractmethod
@@ -9,12 +9,20 @@ import os
 import shutil
 
 def make_ternary(true=True, false=False):
+    """
+    This function works a a ternary builder.
+
+    It takes two arguments and build a lambda function, 
+    taking one argument, which will return one of the arguments
+    depending on the logical value of the argument provided to
+    the lambda function.
+    """
     return lambda x: true if x else false
 
 class TdmHandler(ABC):
     def __init__(self):
         """
-        Created a new TDM handler
+        Create a new TDM handler
         """
         self._sessions = {}
         self._cache = {}
@@ -25,36 +33,104 @@ class TdmHandler(ABC):
     @abstractmethod
     def sessions(self, x=True, extra=True, pprint=False):
         """
-        List sessions
+        List available sessions.
+
+        The returned dictionnary has the following form :
+        d = { session: (command, executable, extra) }
+        where session and command are strings and executable and
+        extra are boolean values.
+
+        If x or extra are set to False, the sessions in the relevant 
+        category are not taken in account.
+
+        If pprint is True, the sessions are pretty printed.
         """
         pass
 
     @abstractmethod
     def cache(self, name=None, pprint=False):
+        """
+        List cached sessions.
+
+        The returned dictionnary has the following form :
+        d = { session: (command, executable) }
+        where session and command are strings and executable
+        are boolean values.
+
+        If pprint is True, the sessions are pretty printed.
+        """
         pass
 
     @abstractmethod
     def add(self, name, command, category='X', pprint=False, dryrun=False):
+        """
+        Add a new session.
+
+        name should be the name of the session.
+        command should be a filename to the executable file of the session.
+        category either 'X' or 'extra'
+
+        If pprint is True, the result of the operation will be printed out.
+
+        If dryrun is True, no actual operation will be performed.
+        """
         pass
 
     @abstractmethod
     def delete(self, name, pprint=False, dryrun=False):
+        """
+        Delete a session.
+
+        name should be the name of the session.
+
+        If pprint is True, the result of the operation will be printed out.
+
+        If dryrun is True, no actual operation will be performed.
+        """
         pass
 
     @abstractmethod
     def enable(self, name, pprint=False, dryrun=False):
+        """
+        Move a session from cache to the active sessions.
+
+        name should be the name of the session.
+
+        If pprint is True, the result of the operation will be printed out.
+
+        If dryrun is True, no actual operation will be performed.
+        """
         pass
 
     @abstractmethod
     def disable(self, name, pprint=False, dryrun=False):
+        """
+        Move a session from the active ones to the cache.
+
+        name should be the name of the session.
+
+        If pprint is True, the result of the operation will be printed out.
+
+        If dryrun is True, no actual operation will be performed.
+        """
         pass
 
     @abstractmethod
     def init(self):
+        """
+        Create the initial configuration.
+
+        If force is True, any existing configuration will be overwritten.
+        """
         pass
 
     @abstractmethod
     def verify(self, pprint=False):
+        """
+        Return True if the configuration is valid.
+        
+        If pprint is True, the result of the operation will be printed out.
+        """
         pass
 
     def check(self, name, pprint=False):
@@ -64,6 +140,12 @@ class TdmHandler(ABC):
             print('IndexError')
 
 class TdmHandlerV1(TdmHandler):
+    """
+    This is a TdmHandler implementation to support a version 1 installation (i.e. in 
+    the $HOME/.tdm directory).
+
+    For a more in-depth documentation, see the TdmHandler class in the same module.
+    """
     def __init__(self):
         """
         Create a version 1 TdmHandler.
