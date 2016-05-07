@@ -185,7 +185,7 @@ class TdmHandlerV1(TdmHandler):
         return s
 
     def add(self, name, command, category='X', pprint=False, dryrun=False):
-        if category == 'X':
+        if category == 'X' or category == 'x':
             if pprint:
                 print('"'+os.path.join(self.confdir, 'sessions', name)+
                         '" -> "'+command+'"')
