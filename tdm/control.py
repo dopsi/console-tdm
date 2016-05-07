@@ -133,12 +133,6 @@ class TdmHandler(ABC):
         """
         pass
 
-    def check(self, name, pprint=False):
-        try:
-            self._sessions[name]
-        except IndexError:
-            print('IndexError')
-
 class TdmHandlerV1(TdmHandler):
     """
     This is a TdmHandler implementation to support a version 1 installation (i.e. in 
