@@ -75,7 +75,7 @@ class TdmInterface(ABC):
 
         self.display()
 
-        os.symlink('/tmp/tdmdefault', self._command)
+        os.symlink(self._command, '/tmp/tdmdefault')
 
     @abstractmethod
     def display(self):
