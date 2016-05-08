@@ -24,12 +24,6 @@ class InvalidTtyException(Exception):
 
 class TdmInterface(ABC):
     def __init__(self):
-        if not self.is_tty():
-            raise InvalidTtyException('Invalid tty')
-
-        if self.X_running():
-            raise XRunningException('X is already running')
-
         self._handler = get_handler()
         self._command = self._handler.sessions()[self._handler.default()][0]
         
@@ -68,6 +62,12 @@ class TdmInterface(ABC):
         print('Command', self._command)
 
     def select(self):
+        if not self.is_tty():
+            raise InvalidTtyException('Invalid tty')
+
+        if self.X_running():
+            raise XRunningException('X is already running')
+
         try:
             subprocess.call(self._handler.scripts()['init'])
         except KeyError:
