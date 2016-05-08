@@ -13,5 +13,5 @@ try:
         raise ValueError('The argument was not "--xstart"')
 except IndexError:
     ui.select()
-    command = '/usr/bin/startx'
-    execvp(command, [command])
+    command = 'startx'
+    execlp(command)
