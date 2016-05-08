@@ -24,14 +24,12 @@ class TdmHandler(ABC):
         """
         Create a new TDM handler
         """
-        self._sessions = {}
-        self._cache = {}
 
     def __del__(self):
         pass
 
     @abstractmethod
-    def sessions(self, x=True, extra=True, pprint=False):
+    def sessions(self, x=True, extra=True, x_prefix='', extra_prefix='', pprint=False):
         """
         List available sessions.
 
@@ -42,6 +40,9 @@ class TdmHandler(ABC):
 
         If x or extra are set to False, the sessions in the relevant 
         category are not taken in account.
+
+        x_prefix and extra_prefix will be prefixed to the keys in the
+        corresponding categories.
 
         If pprint is True, the sessions are pretty printed.
         """
@@ -161,7 +162,7 @@ class TdmHandlerV1(TdmHandler):
         self._executable_ternary = make_ternary(true='', false='(Not executable)')
         self._extra_ternary = make_ternary(true='extra/', false='')
 
-    def sessions(self, x=True, extra=True, pprint=False):
+    def sessions(self, x=True, extra=True, x_prefix='', extra_prefix='', pprint=False):
         """
         List sessions
         """
@@ -170,12 +171,12 @@ class TdmHandlerV1(TdmHandler):
         if x:
             p = Path(os.path.join(self.confdir, 'sessions'))
             for l in p.iterdir():
-                s[os.path.basename(str(l))] = (os.readlink(str(l)), os.access(str(l), os.X_OK), False)
+                s[x_prefix+os.path.basename(str(l))] = (os.readlink(str(l)), os.access(str(l), os.X_OK), False)
         
         if extra:
             p = Path(os.path.join(self.confdir, 'extra'))
             for l in p.iterdir():
-                s[os.path.basename(str(l))] = (os.readlink(str(l)), os.access(str(l), os.X_OK), True)
+                s[extra_prefix+os.path.basename(str(l))] = (os.readlink(str(l)), os.access(str(l), os.X_OK), True)
 
         if pprint:
             for key, value in s.items():
