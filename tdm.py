@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 from tdm.core import get_interface
-
+from os import execvp
 ui = get_interface()
 
 import sys
@@ -13,3 +13,5 @@ try:
         raise ValueError('The argument was not "--xstart"')
 except IndexError:
     ui.select()
+    command = '/usr/bin/startx'
+    execvp(command, [command])
