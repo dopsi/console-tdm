@@ -19,7 +19,7 @@ setup(
     url = "http://github.com/dopsi/tdm",
     packages=['tdm'],
     data_files=[
-        ('share/man/man1', ['ressources/tdm.1']),
+        ('share/man/man1', ['data/tdm.1']),
     ],
     long_description=read('README.md'),
     classifiers=[
