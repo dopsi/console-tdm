@@ -32,7 +32,7 @@ def disable(handler, name):
     handler.disable(name, pprint=True)
 
 def init(handler):
-    handler = tdm.control.get(init=True)
+    handler = tdm.control.get_handler(init=True)
     handler.init(pprint=True)
 
 def check(handler, name):
@@ -65,7 +65,7 @@ def select(value):
             }[value]
 
 if __name__ == '__main__':
-    handler = tdm.control.get()
+    handler = tdm.control.get_handler()
     try:
         f = select(sys.argv[1])
     except KeyError as e:

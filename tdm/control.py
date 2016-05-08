@@ -340,7 +340,7 @@ class TdmHandlerV2(TdmHandler):
         """
         pass
 
-def get(priority=None, init=False):
+def get_handler(priority=None, init=False):
     """
     Get the Tdm Handle for the current installation
     """
