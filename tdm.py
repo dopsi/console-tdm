@@ -1,5 +1,7 @@
 #! /usr/bin/env python3
 
+from tdm.core import get_interface
+
 ui = get_interface()
 
 import sys
