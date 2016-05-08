@@ -7,7 +7,7 @@ import subprocess
 import getpass
 import os
 import sys
-from .control import get
+from .control import get_handler
 from abc import ABC, abstractmethod
     
 class XRunningException(Exception):
@@ -24,14 +24,15 @@ class InvalidTtyException(Exception):
 
 class TdmInterface(ABC):
     def __init__(self):
-#        if not self.is_tty():
-#            raise InvalidTtyException('Invalid tty')
-#
-#        if self.X_running():
-#            raise XRunningException('X is already running')
+        if not self.is_tty():
+            raise InvalidTtyException('Invalid tty')
 
-        self._handler = get()
+        if self.X_running():
+            raise XRunningException('X is already running')
+
+        self._handler = get_handler()
         self._command = self._handler.sessions()[self._handler.default()][0]
+        
 
     def X_running(self):
         X = subprocess.Popen('ps h -eo user,comm', shell=True, stdout=subprocess.PIPE,
@@ -50,7 +51,31 @@ class TdmInterface(ABC):
             return False
 
     def run(self):
+        try:
+            subprocess.call(self._handler.scripts()['exit'])
+        except KeyError:
+            pass
+
+        try:
+            command = os.readlink('/tmp/tdmdefault')
+            os.remove('/tmp/tdmdefault')
+            os.execvp(command, [command])
+        except FileNotFoundError:
+            try:
+                os.execvp(self._handler.default(), [self._handler.default()])
+            except FileNotFoundError as e:
+                pass
         print('Command', self._command)
+
+    def select(self):
+        try:
+            subprocess.call(self._handler.scripts()['init'])
+        except KeyError:
+            pass
+
+        self.display()
+
+        os.symlink(self._command, '/tmp/tdmdefault')
 
     @abstractmethod
     def display(self):
@@ -81,10 +106,19 @@ class TdmInterfaceText(TdmInterface):
                 print('Unknown value, using default')
                 pass
 
-def run():
-    i = TdmInterfaceText()
-    i.display()
-    i.run()
+def get_interface():
+    return TdmInterfaceText()
 
 if __name__ == '__main__':
-    run()
+    ui = get_interface()
+
+    import sys
+    
+    try:
+        if sys.argv[1] == '--xstart':
+            ui.run()
+        else:
+            raise ValueError('The argument was not "--xstart"')
+    except IndexError:
+        ui.select()
+
