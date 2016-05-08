@@ -146,6 +146,13 @@ class TdmHandler(ABC):
         """
         pass
 
+    @abstractmethod
+    def scripts(self):
+        """
+        Return a dictionnary of available scripts
+        """
+        pass
+
 class TdmHandlerV1(TdmHandler):
     """
     This is a TdmHandler implementation to support a version 1 installation (i.e. in 
@@ -313,6 +320,17 @@ class TdmHandlerV1(TdmHandler):
                 print(value)
 
         return value
+
+    def scripts(self):
+        s = ['init', 'exit']
+
+        values = {}
+
+        for x in s:
+            if os.path.exists(os.path.join(self.confdir, 'tdm'+x)):
+                values[x] = os.path.join(self.confdir, 'tdm'+x)
+
+        return values
 
 class TdmHandlerV2(TdmHandler):
     def __init__(self):
