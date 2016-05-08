@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v2.0.0] Unreleased
+
+This new version is a total rewrite of the program in Python 3.
+See README.md for more informations.
+
 ## [v1.1.0] 2016-02-17
 
 ### New features

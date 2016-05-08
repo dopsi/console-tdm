@@ -12,15 +12,11 @@ Shell script is known for its vulnerabilities and few security systems.
 This is why I decided it would be best for this program to be ported to 
 Python 3, which is a robust language, well fitted for this kind of tasks.
 
-*console-tdm* will be a package, with various modules to handle the various 
-tasks now handled by `tdm`, `tdmctl`, `tdminit` and `tdmexit`.
+Version 2 is able to handle all operations done in version 1 (the command
+line program remain the same and take the same arguments).
 
-Configurations files will be in JSON format, in the file `~/.config/tdm`.
-A migration tool will be included.
-
-This Python based version will require :
-
-* `pythondialog` for the interface
+There are no dependencies, except for the Python library. To have the 
+dialog interface, the `pythondialog` module is required.
 
 Versioning
 -----------
