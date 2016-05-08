@@ -18,6 +18,7 @@ setup(
     keywords = "console display manager",
     url = "http://github.com/dopsi/tdm",
     packages=['tdm'],
+    scripts=['scripts/tdm', 'scripts/tdmctl'],
     data_files=[
         ('share/man/man1', ['data/man/tdm.1']),
         ('share/zsh/site-functions', ['data/completion/_tdmctl']),
