@@ -344,7 +344,3 @@ def get(priority=None, init=False):
             return h
 
     return None
-
-if __name__ == '__main__':
-    h = get()
-    h.sessions(pprint=True)
