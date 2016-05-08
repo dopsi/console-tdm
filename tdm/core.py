@@ -106,8 +106,32 @@ class TdmInterfaceText(TdmInterface):
                 print('Unknown value, using default')
                 pass
 
+class TdmInterfaceDialog(TdmInterface):
+    def __init__(self):
+        import dialog
+        TdmInterface.__init__(self)
+        self._widget = dialog.Dialog()
+        self._widget.set_background_title('TDM 2.0.0')
+
+    def display(self):
+        s = self._handler.sessions(extra_prefix='extra/')
+        n = 0
+        k = []
+        ch = []
+        sort_key = lambda t: t[0].lower().replace('extra/', '2') if 'extra/' in t[0] else '1'+t[0].lower()
+        for key, value in sorted(s.items(), key=sort_key):
+            if value[1]:
+                k.append(key)
+                ch.append((str(n), key))
+                n+=1
+        title='Please select from the following (default: '+self._handler.default()+')'
+        code, value = self._widget.menu(title, choices=ch)
+
 def get_interface():
-    return TdmInterfaceText()
+    try:
+        return TdmInterfaceDialog()
+    except ImportError:
+        return TdmInterfaceText()
 
 if __name__ == '__main__':
     ui = get_interface()
