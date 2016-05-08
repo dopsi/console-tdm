@@ -19,7 +19,9 @@ setup(
     url = "http://github.com/dopsi/tdm",
     packages=['tdm'],
     data_files=[
-        ('share/man/man1', ['data/tdm.1']),
+        ('share/man/man1', ['data/man/tdm.1']),
+        ('share/zsh/site-functions', ['data/completion/_tdmctl']),
+        ('share/bash-completion/completions', ['data/completion/tdmctl']),
     ],
     long_description=read('README.md'),
     classifiers=[
