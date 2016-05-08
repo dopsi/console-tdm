@@ -149,7 +149,8 @@ class TdmHandler(ABC):
     @abstractmethod
     def scripts(self):
         """
-        Return a dictionnary of available scripts
+        Return a dictionnary of available script commands to be executed by
+        a subprocess.
         """
         pass
 
@@ -328,7 +329,7 @@ class TdmHandlerV1(TdmHandler):
 
         for x in s:
             if os.path.exists(os.path.join(self.confdir, 'tdm'+x)):
-                values[x] = os.path.join(self.confdir, 'tdm'+x)
+                values[x] = ['bash', '-euo', 'pipefail', os.path.join(self.confdir, 'tdm'+x)]
 
         return values
 
