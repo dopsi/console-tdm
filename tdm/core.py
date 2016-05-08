@@ -2,3 +2,89 @@
 This module is the TDM core module, which does select the
 session which will run.
 """
+
+import subprocess
+import getpass
+import os
+import sys
+from .control import get
+from abc import ABC, abstractmethod
+    
+class XRunningException(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+class InvalidTtyException(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+class TdmInterface(ABC):
+    def __init__(self):
+#        if not self.is_tty():
+#            raise InvalidTtyException('Invalid tty')
+#
+#        if self.X_running():
+#            raise XRunningException('X is already running')
+
+        self._handler = get()
+        self._command = self._handler.sessions()[self._handler.default()][0]
+
+    def X_running(self):
+        X = subprocess.Popen('ps h -eo user,comm', shell=True, stdout=subprocess.PIPE,
+                universal_newlines=True)
+        stdout, stderr = X.communicate()
+        for x in stdout.split('\n'):
+            if 'Xorg' in x and getpass.getuser() in x:
+                return True
+    
+        return False
+    
+    def is_tty(self):
+        if 'tty' in os.path.basename(os.ttyname(sys.stdout.fileno())):
+            return True
+        else:
+            return False
+
+    def run(self):
+        print('Command', self._command)
+
+    @abstractmethod
+    def display(self):
+        pass
+
+class TdmInterfaceText(TdmInterface):
+    def display(self):
+        s = self._handler.sessions(extra_prefix='extra/')
+        print('This is TDM 2.0.0, a tiny display manager')
+        print('Please select from the following (default: '+self._handler.default()+')')
+        n = 0
+        k = []
+        sort_key = lambda t: t[0].lower().replace('extra/', '2') if 'extra/' in t[0] else '1'+t[0].lower()
+        for key, value in sorted(s.items(), key=sort_key):
+            if value[1]:
+                k.append(key)
+                print(str(n)+' '+key)
+                n+=1
+        try:
+            value = int(input('Program ID: '))
+        except (EOFError, ValueError):
+            print('No value, using default')
+            pass
+        else:
+            try:
+                self._command = s[k[value]][0]
+            except IndexError:
+                print('Unknown value, using default')
+                pass
+
+def run():
+    i = TdmInterfaceText()
+    i.display()
+    i.run()
+
+if __name__ == '__main__':
+    run()
