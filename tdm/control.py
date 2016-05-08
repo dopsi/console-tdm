@@ -333,13 +333,6 @@ class TdmHandlerV1(TdmHandler):
 
         return values
 
-class TdmHandlerV2(TdmHandler):
-    def __init__(self):
-        """
-        Create a version 1 TdmHandler.
-        """
-        pass
-
 def get_handler(priority=None, init=False):
     """
     Get the Tdm Handle for the current installation
