@@ -22,6 +22,7 @@ setup(
         ('share/man/man1', ['data/man/tdm.1']),
         ('share/zsh/site-functions', ['data/completion/_tdmctl']),
         ('share/bash-completion/completions', ['data/completion/tdmctl']),
+        ('share/tdm', ['data/scripts/tdminit', 'data/scripts/tdmexit'])
     ],
     long_description=read('README.md'),
     classifiers=[
