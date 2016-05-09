@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 from tdm.core import get_interface
-from os import execvp
+from os import execlp
 ui = get_interface()
 
 import sys
