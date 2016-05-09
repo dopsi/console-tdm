@@ -14,4 +14,4 @@ try:
 except IndexError:
     ui.select()
     command = 'startx'
-    execlp(command)
+    execlp(command, command)
