@@ -1,9 +1,12 @@
 tdm
 ===
 
-This is a fork of the TDM display manager program by *mytbk*.
+This was a fork of the TDM display manager program by *mytbk*.
 The original source can be found at 
 [here](https://github.com/mytbk/console-tdm).
+
+See [Port to Python](#port-to-python) for more information about
+version 2 of tdm.
 
 Port to Python
 --------------
