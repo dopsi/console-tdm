@@ -139,10 +139,13 @@ class TdmInterfaceDialog(TdmInterface):
         code, value = self._widget.menu(title, choices=ch)
 
 def get_interface():
-    try:
-        return TdmInterfaceDialog()
-    except ImportError:
+    if os.getenv('TDMUI', 'tdm_dialog') == 'tdm_text':
         return TdmInterfaceText()
+    else:
+        try:
+            return TdmInterfaceDialog()
+        except ImportError:
+            return TdmInterfaceText()
 
 if __name__ == '__main__':
     ui = get_interface()
