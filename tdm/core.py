@@ -59,7 +59,6 @@ class TdmInterface(ABC):
                 os.execvp(self._handler.default(), [self._handler.default()])
             except FileNotFoundError as e:
                 pass
-        print('Command', self._command)
 
     def select(self):
         if not self.is_tty():
