@@ -18,4 +18,3 @@ github_username:  dopsi
 
 # Build settings
 markdown: kramdown
-highlighter: pygments
