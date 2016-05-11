@@ -7,6 +7,7 @@ import subprocess
 import getpass
 import os
 import sys
+import errno
 from .control import get_handler
 from abc import ABC, abstractmethod
     
@@ -49,6 +50,17 @@ class TdmInterface(ABC):
             subprocess.call(self._handler.scripts()['exit'])
         except KeyError:
             pass
+
+        if int(os.getenv('SAVELAST', 1)) == 1:
+            linkname = os.path.join(self._handler.confdir, 'default')
+            try:
+                os.symlink(self._command, linkname)
+            except OSError as e:
+                if e.errno == errno.EEXIST:
+                    os.remove(linkname)
+                    os.symlink(self._command, linkname)
+                else:
+                    raise e
 
         try:
             command = os.readlink('/tmp/tdmdefault')
