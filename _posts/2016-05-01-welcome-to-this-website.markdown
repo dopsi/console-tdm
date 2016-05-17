@@ -2,7 +2,6 @@
 layout: post
 title:  "Welcome to this website"
 date:   2016-05-01 19:00:00 +0200
-categories: jekyll update
 ---
 
 I am proud to announce this new site for the [console-tdm][console-tdm] project.
