@@ -51,6 +51,8 @@ class TdmInterface(ABC):
         except KeyError:
             pass
 
+## Set the default session if it has to be saved
+
         if int(os.getenv('SAVELAST', 1)) == 1:
             linkname = os.path.join(self._handler.confdir, 'default')
             try:
@@ -85,7 +87,6 @@ class TdmInterface(ABC):
             pass
 
         self.display()
-
         os.symlink(self._command, '/tmp/tdmdefault')
 
     @abstractmethod
@@ -137,6 +138,11 @@ class TdmInterfaceDialog(TdmInterface):
                 n+=1
         title='Please select from the following (default: '+self._handler.default()+')'
         code, value = self._widget.menu(title, choices=ch)
+        for i in ch:
+            if i[0] == value:
+                self._command = s[i[1]][0]
+
+        
 
 def get_interface():
     if os.getenv('TDMUI', 'tdm_dialog') == 'tdm_text':
