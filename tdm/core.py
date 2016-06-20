@@ -127,6 +127,8 @@ class TdmInterfaceDialog(TdmInterface):
 
     def display(self):
         s = self._handler.sessions(extra_prefix='extra/')
+        defopt = self._handler.default()
+        defopt_id = 0
         n = 0
         k = []
         ch = []
@@ -135,9 +137,11 @@ class TdmInterfaceDialog(TdmInterface):
             if value[1]:
                 k.append(key)
                 ch.append((str(n), key))
+                if defopt == key:
+                    defopt_id = n
                 n+=1
         title='Please select from the following (default: '+self._handler.default()+')'
-        code, value = self._widget.menu(title, choices=ch)
+        code, value = self._widget.menu(title, choices=ch, default_item=defopt_id)
         for i in ch:
             if i[0] == value:
                 self._command = s[i[1]][0]
