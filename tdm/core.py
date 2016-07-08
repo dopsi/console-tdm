@@ -27,6 +27,7 @@ class TdmInterface(ABC):
     def __init__(self):
         self._handler = get_handler()
         self._command = self._handler.sessions()[self._handler.default()][0]
+        self._is_x = True
         
 
     def X_running(self):
@@ -89,6 +90,9 @@ class TdmInterface(ABC):
         self.display()
         os.symlink(self._command, '/tmp/tdmdefault')
 
+    def isX(self):
+        return self._is_x
+
     @abstractmethod
     def display(self):
         pass
@@ -141,10 +145,11 @@ class TdmInterfaceDialog(TdmInterface):
                     defopt_id = n
                 n+=1
         title='Please select from the following (default: '+self._handler.default()+')'
-        code, value = self._widget.menu(title, choices=ch, default_item=defopt_id)
+        code, value = self._widget.menu(title, choices=ch)
         for i in ch:
             if i[0] == value:
                 self._command = s[i[1]][0]
+                self._is_x = not s[i[1]][2]
 
         
 

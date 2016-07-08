@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 from tdm.core import get_interface
-from os import execlp
+from os import execlp,readlink
 ui = get_interface()
 
 import sys
@@ -13,5 +13,8 @@ try:
         raise ValueError('The argument was not "--xstart"')
 except IndexError:
     ui.select()
-    command = 'startx'
+    if ui.isX():
+        command = 'startx'
+    else:
+        command = readlink('/tmp/tdmdefault')
     execlp(command, command)
