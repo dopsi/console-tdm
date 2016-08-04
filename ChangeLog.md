@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.1.1] 2016-08-04
+
+### Changed
+
+* tdmctl: set PREFIX to /usr/local (to be consistent with Makefile)
+* Makefile (bin): set the prefix in tdmctl to the same value as in Makefile
+
 ## [v1.1.0] 2016-02-17
 
 ### New features

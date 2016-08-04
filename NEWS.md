@@ -1,5 +1,11 @@
 # News
 
+## [v1.1.1] 2016-08-04
+
+### Changed
+
+* Bug fixes (consistency)
+
 ## [v1.1.0] 2016-02-17
 
 ### New features

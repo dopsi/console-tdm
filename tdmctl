@@ -15,7 +15,7 @@
 
 CONFDIR="$HOME/.tdm"
 CACHEDIR="${CONFDIR}/cache"
-PREFIX=/usr
+PREFIX=/usr/local
 
 init(){
 	[[ "$1" = "-f" || "$1" = "--force" ]]&&rm -rf "${CONFDIR}"

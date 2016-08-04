@@ -13,6 +13,7 @@ install: bin bashcomp zshcomp scripts doc
 bin: tdm tdmctl
 	$(MKDIR) $(PREFIX)/bin
 	$(CP) $^ $(PREFIX)/bin
+	sed -i -e "s_PREFIX=/usr/local_PREFIX=$(PREFIX)_" $(PREFIX)/bin/tdmctl
 
 bashcomp: tdmctl.bashcomp
 	$(MKDIR) $(PREFIX)/share/bash-completion/completions
