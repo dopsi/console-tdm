@@ -136,7 +136,7 @@ class TdmInterfaceDialog(TdmInterface):
         n = 0
         k = []
         ch = []
-        ch.append(('Default',self._handler.default()[0]))
+        ch.append(('Default',self._handler.default()))
         sort_key = lambda t: t[0].lower().replace('extra/', '2') if 'extra/' in t[0] else '1'+t[0].lower()
         for key, value in sorted(s.items(), key=sort_key):
             if value[1]:
