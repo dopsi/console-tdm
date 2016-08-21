@@ -136,6 +136,7 @@ class TdmInterfaceDialog(TdmInterface):
         n = 0
         k = []
         ch = []
+        ch.append(('Default',self._handler.default()[0]))
         sort_key = lambda t: t[0].lower().replace('extra/', '2') if 'extra/' in t[0] else '1'+t[0].lower()
         for key, value in sorted(s.items(), key=sort_key):
             if value[1]:
@@ -146,6 +147,8 @@ class TdmInterfaceDialog(TdmInterface):
                 n+=1
         title='Please select from the following (default: '+self._handler.default()+')'
         code, value = self._widget.menu(title, choices=ch)
+        if code == dialog.CANCEL:
+            sys.exit()
         for i in ch:
             if i[0] == value:
                 self._command = s[i[1]][0]
