@@ -147,7 +147,7 @@ class TdmInterfaceDialog(TdmInterface):
                 n+=1
         title='Please select from the following (default: '+self._handler.default()+')'
         code, value = self._widget.menu(title, choices=ch)
-        if code == dialog.CANCEL:
+        if code == self._widget.CANCEL:
             sys.exit()
         for i in ch:
             if i[0] == value:
