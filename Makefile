@@ -1,5 +1,6 @@
 MKDIR=mkdir -p
 CP=cp
+DESTDIR=
 PREFIX=/usr/local
 SH=/bin/sh
 
@@ -11,26 +12,26 @@ none:
 install: bin bashcomp zshcomp scripts doc
 
 bin: tdm tdmctl
-	$(MKDIR) $(PREFIX)/bin
-	$(CP) $^ $(PREFIX)/bin
-	sed -i -e "s_PREFIX=/usr/local_PREFIX=$(PREFIX)_" $(PREFIX)/bin/tdmctl
+	$(MKDIR) $(DESTDIR)$(PREFIX)/bin
+	$(CP) $^ $(DESTDIR)$(PREFIX)/bin
+	sed -i -e "s_PREFIX=/usr/local_PREFIX=$(PREFIX)_" $(DESTDIR)$(PREFIX)/bin/tdmctl
 
 bashcomp: tdmctl.bashcomp
-	$(MKDIR) $(PREFIX)/share/bash-completion/completions
-	$(CP) $^ $(PREFIX)/share/bash-completion/completions/tdmctl
+	$(MKDIR) $(DESTDIR)$(PREFIX)/share/bash-completion/completions
+	$(CP) $^ $(DESTDIR)$(PREFIX)/share/bash-completion/completions/tdmctl
 
 zshcomp: _tdmctl
-	$(MKDIR) $(PREFIX)/share/zsh/site-functions
-	$(CP) $^ $(PREFIX)/share/zsh/site-functions
+	$(MKDIR) $(DESTDIR)$(PREFIX)/share/zsh/site-functions
+	$(CP) $^ $(DESTDIR)$(PREFIX)/share/zsh/site-functions
 
 scripts: tdmexit tdminit
-	$(MKDIR) $(PREFIX)/share/tdm
-	$(CP) $^ $(PREFIX)/share/tdm
-	$(MKDIR) $(PREFIX)/share/tdm/sessions
-	$(MKDIR) $(PREFIX)/share/tdm/extra
-	$(SH) ./links.sh /usr/bin $(PREFIX)/share/tdm/sessions
+	$(MKDIR) $(DESTDIR)$(PREFIX)/share/tdm
+	$(CP) $^ $(DESTDIR)$(PREFIX)/share/tdm
+	$(MKDIR) $(DESTDIR)$(PREFIX)/share/tdm/sessions
+	$(MKDIR) $(DESTDIR)$(PREFIX)/share/tdm/extra
+	$(SH) ./links.sh /usr/bin $(DESTDIR)$(PREFIX)/share/tdm/sessions
 
 doc: tdm.1
-	$(MKDIR) $(PREFIX)/share/man/man1
-	$(CP) $^ $(PREFIX)/share/man/man1
-	ln -s $^ $(PREFIX)/share/man/man1/tdmctl.1
+	$(MKDIR) $(DESTDIR)$(PREFIX)/share/man/man1
+	$(CP) $^ $(DESTDIR)$(PREFIX)/share/man/man1
+	ln -s $^ $(DESTDIR)$(PREFIX)/share/man/man1/tdmctl.1
