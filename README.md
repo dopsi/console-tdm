@@ -1,6 +1,9 @@
 tdm
 ===
 
+**This project is now on standby**. Only version 1 is supported at the
+moment.
+
 This was a fork of the TDM display manager program by *mytbk*.
 The original source can be found at 
 [here](https://github.com/mytbk/console-tdm).
