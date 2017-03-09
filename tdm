@@ -71,7 +71,7 @@ clear
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
 
 # X started, exit
-w -oush | grep -E ' :[0-9]+' > /dev/null && fallback 'X started.'
+[[ $(ls -1 /tmp/.X11-unix | wc -l) -gt 0 ]] && fallback 'X started.'
 
 # build confdir
 if [ ! -d "${CONFDIR}" ]; then
