@@ -1,5 +1,11 @@
 # News
 
+## [No version yet] No date yet
+
+### Changed
+
+* Bug fix
+
 ## [v1.1.2] 2017-02-24
 
 ### Changed
