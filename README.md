@@ -136,3 +136,6 @@ Currently maintained by dopsi.
 This is a fork of the TDM display manager program by *mytbk*.
 The original source can be found at 
 [here](https://github.com/mytbk/console-tdm).
+
+Contributors:
+* Helvethor
