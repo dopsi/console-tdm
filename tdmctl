@@ -110,7 +110,11 @@ case "$1" in
 		if [ ! -n "$2" ]; then
 			usage
 		fi
-		FILE="$CONFDIR/sessions/$2"
+		if [[ "$2" == extra/* ]] ; then
+			FILE="$CONFDIR/$2"
+		else
+			FILE="$CONFDIR/sessions/$2"
+		fi
 		if [ -f "$FILE" ]; then
 			check "$FILE"
 		else

@@ -76,6 +76,7 @@ List cached (inactive) sessions
 See which command is called by the session
 
     tdmctl check <session>
+    tdmctl check extra/<session>
 
 Show or set default session
 
