@@ -31,7 +31,7 @@ usage(){
 	echo "tdmctl init: initialize the config directory."
 	echo "tdmctl list: list available sessions  (X and extra)."
 	echo "tdmctl cache: list cached files."
-	echo "tdmctl check <session>: see what <session> is."
+	echo "tdmctl check [extra/]<session>: see what <session> is."
 	echo "tdmctl default [session]: show/set default X session."
 	echo "tdmctl add <name> <path> [X(default)/extra]: add a session."
 	echo "tdmctl remove <name>"
