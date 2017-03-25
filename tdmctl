@@ -59,7 +59,7 @@ verify(){
 		
 
 check(){
-	readlink "$1" || cat "$1"
+	readlink "$1" || cat "$1" 2>/dev/null || echo "$1 not found or missing read permission"
 }
 
 if [ ! -n "$1" ]; then
