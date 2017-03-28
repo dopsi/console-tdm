@@ -27,7 +27,6 @@ Run `make install` from the source directory (you can optionnally set
 The dependencies are :
 
 * *xinit*
-* *pkill*
 * *dialog* (optional, for the curses interface)
 
 ## Usage

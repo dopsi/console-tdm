@@ -173,7 +173,7 @@ elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
 		ln -sf ${xsessions[${sid}]} "/tmp/tdmdefault"
 	fi
 	startx
-	pkill -u "$(whoami)"
+	logout
 else
 	echo "Unknown value,load default."
 	if [ -x "${CONFDIR}/default" ]; then
