@@ -34,7 +34,7 @@ fallback(){
 	if [[ -n $1 ]]; then
 		echo -e "\033[31;1m$1\033[0m"
 	fi
-	exec $SHELL
+	exit 1
 }
 
 get_needs(){
@@ -173,12 +173,10 @@ elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
 		ln -sf ${xsessions[${sid}]} "/tmp/tdmdefault"
 	fi
 	startx
-	logout
 else
 	echo "Unknown value,load default."
 	if [ -x "${CONFDIR}/default" ]; then
 		startx
-		logout
 	else
 		fallback "Session not defined,fallback."
 	fi
