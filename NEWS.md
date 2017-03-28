@@ -1,6 +1,6 @@
 # News
 
-## [No version yet] No date yet
+## [v1.2.1] 2017-03-28
 
 ### Changed
 

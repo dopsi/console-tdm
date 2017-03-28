@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.2.1] 2017-03-28
+
+### Changed
+
+* tdm: revert the user getting logged out
+* tdm: return non-zero if no session was executed
+
+
 ## [v1.2.0] 2017-03-25
 
 ### Changed

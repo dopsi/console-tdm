@@ -18,7 +18,7 @@
 # is a session selector after login.
 # It links the starting script to default and start
 # the startx script.
-VERSION=1.2.0
+VERSION=1.2.1
 
 # directory settings
 CONFDIR="$HOME/.tdm"

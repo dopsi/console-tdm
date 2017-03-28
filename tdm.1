@@ -45,9 +45,10 @@ enable \fISESSION\fR
 .TP
 .BR disable " " \fISESSION\fR
 disable \fISESSION\fR
+.SH RETURN VALUE
+If no session was executed, returns 1. Otherwise 0.
 .SH FILES AND DIRECTORIES
 .BR ~/.tdm/tdminit
 commands executed at login
 .BR ~/.tdm/tdmexit
 commands executed before the X server (or extra session) is started
-.SH SEE ALSO

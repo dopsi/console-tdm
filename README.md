@@ -48,6 +48,10 @@ tty).
 
 See also the [ArchWiki page](https://wiki.archlinux.org/index.php/Console_TDM).
 
+### Return value
+
+If no session was executed, returns 1. Otherwise 0.
+
 ### Scripts
 
 There are two scripts in the TDM configuration directory (`$HOME/.tdm`) 
