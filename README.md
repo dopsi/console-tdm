@@ -22,6 +22,12 @@ is present in the tdm session selection screen, while an inactive tdm session
 is not shown. If the path is not an executable file, the tdm session is 
 always counted as inactive.
 
+As shown below, TDM has both a text and dialog mode:
+
+[![Text mode](https://static.dopsi.ch/console-tdm/console-tdm_screenshot_text.png)](https://static.dopsi.ch/console-tdm/console-tdm_screenshot_text.png)
+
+[![Dialog mode](https://static.dopsi.ch/console-tdm/console-tdm_screenshot_dialog.png)](https://static.dopsi.ch/console-tdm/console-tdm_screenshot_dialog.png)
+
 ## Installation
 
 Run `make install` from the source directory (you can optionnally set 
