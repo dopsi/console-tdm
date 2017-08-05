@@ -1,6 +1,6 @@
 .TH tdm 1
 .SH NAME
-tdm \- bash program similar to a display manager
+tdm \- a tiny display manager
 .SH SYNOPSIS
 .B
 tdm
@@ -11,11 +11,10 @@ tdmctl
 \fICOMMAND\fR [\fIARGS\fR]
 .SH DESCRIPTION
 .BR tdm (1)
-is a
-.BR bash (1)
-program that can be executed to mimic the functionality of a display manager.
-The program will display a list of available sessions (represented by symlinks
-to various programs or scripts).
+is a console based display manager, presenting the user with a list of
+available sessions after login.  Sessions can be defined by creating symlinks
+to various programs or scripts, like your favourite window manager / desktop
+environment.
 .SH COMMANDS
 .TP
 .BR init
@@ -48,7 +47,9 @@ disable \fISESSION\fR
 .SH RETURN VALUE
 If no session was executed, returns 1. Otherwise 0.
 .SH FILES AND DIRECTORIES
+.TP
 .BR ~/.tdm/tdminit
 commands executed at login
+.TP
 .BR ~/.tdm/tdmexit
 commands executed before the X server (or extra session) is started
