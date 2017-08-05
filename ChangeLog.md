@@ -10,7 +10,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * tdm: revert the user getting logged out
 * tdm: return non-zero if no session was executed
 
-
 ## [v1.2.0] 2017-03-25
 
 ### Changed
