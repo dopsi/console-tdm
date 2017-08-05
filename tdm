@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with tdm.  If not, see <http://www.gnu.org/licenses/>.
+
 # TDM, tbk display manager, or tiny display manager,
 # is a session selector after login.
 # It links the starting script to default and starts
