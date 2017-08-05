@@ -16,7 +16,7 @@
 # along with tdm.  If not, see <http://www.gnu.org/licenses/>.
 # TDM, tbk display manager, or tiny display manager,
 # is a session selector after login.
-# It links the starting script to default and start
+# It links the starting script to default and starts
 # the startx script.
 VERSION=1.2.1
 
@@ -116,7 +116,7 @@ if [ -d ${SESSIONS} ]; then
 	done
 else
 	echo "${SESSIONS} doesn't exist."
-	echo "making this directory."
+	echo "Making this directory."
 	mkdir -p ${SESSIONS}
 fi
 
@@ -174,11 +174,11 @@ elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
 	fi
 	startx
 else
-	echo "Unknown value,load default."
+	echo "Unknown value, load default."
 	if [ -x "${CONFDIR}/default" ]; then
 		startx
 	else
-		fallback "Session not defined,fallback."
+		fallback "Session not defined, fallback."
 	fi
 fi
 

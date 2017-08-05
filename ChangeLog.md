@@ -48,7 +48,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * Makefile (scripts): add the extra directory to the default configuration
 * tdmctl (main script): add verification
-  (cache functionnality): put extra session in correct directory and check for links
+  (cache functionality): put extra session in correct directory and check for links
 * links.sh (main script): force symlink replacement if already existing
 
 ## [v1.0.0] 2015-12-31

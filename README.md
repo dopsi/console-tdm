@@ -30,7 +30,7 @@ As shown below, TDM has both a text and dialog mode:
 
 ## Installation
 
-Run `make install` from the source directory (you can optionnally set 
+Run `make install` from the source directory (you can optionally set
 `DESTDIR` or `PREFIX`).
 
 The dependencies are :
