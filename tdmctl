@@ -1,5 +1,6 @@
 #!/bin/bash
-#tdmctl: a tool to configure tdm
+
+# tdmctl: a tool to control and configure tdm.
 
 # This file is part of tdm, a tiny display manager.
 #

@@ -1,3 +1,5 @@
+# tdmexit: script executed before tdm starts your WM/DE.
+
 # This file is part of tdm, a tiny display manager.
 #
 # tdm is free software: you can redistribute it and/or modify

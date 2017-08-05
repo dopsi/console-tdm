@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# tdm: session selector after login.
+
 # This file is part of tdm, a tiny display manager.
 #
 # tdm is free software: you can redistribute it and/or modify
@@ -15,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with tdm.  If not, see <http://www.gnu.org/licenses/>.
 
-# TDM, tbk display manager, or tiny display manager,
-# is a session selector after login.
-# It links the starting script to default and starts
-# the startx script.
 VERSION=1.2.1
 
 # directory settings
