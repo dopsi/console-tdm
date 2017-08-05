@@ -15,10 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with tdm.  If not, see <http://www.gnu.org/licenses/>.
 
-#Run these before WM/DE starts
-#
+# Example commands to execute before your WM/DE
 #export LANG=zh_CN.UTF-8
 #fcitx
 #feh --bg-scale /path/to/wallpaper
-#
-#Then TDM exits to start your WM/DE
