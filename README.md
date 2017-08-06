@@ -151,3 +151,5 @@ The original source can be found at
 
 Contributors:
 * Helvethor
+* hartwork
+* DuncanvR

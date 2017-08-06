@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.2.2] 2017-08-06
+
+### Changed
+
+* tdmctl: create the `extra` directory if missing on new configuration
+* tdmctl: new information message in case of error during the `init`
+* tdmctl: fix shellcheck issues
+* various files: fix issues with whitespace and wording (by DuncanvR)
+
 ## [v1.2.1] 2017-03-28
 
 ### Changed

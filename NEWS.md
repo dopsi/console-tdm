@@ -1,5 +1,12 @@
 # News
 
+## [v1.2.2] 2017-08-06
+
+### Changed
+
+* Fixed the missing `extra` directory in some configurations
+* Various bugfixes from DuncanvR
+
 ## [v1.2.1] 2017-03-28
 
 ### Changed
