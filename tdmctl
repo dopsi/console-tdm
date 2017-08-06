@@ -82,7 +82,7 @@ case "$1" in
 	list)
 		verify
 		for session in "$CONFDIR/sessions"/*; do
-			[ -x "$session" ] && echo $(basename "$session")
+			[ -x "$session" ] && basename "$session"
 		done
 		for session in "$CONFDIR/extra"/*; do
 			[ -x "$session" ] && echo "extra/$(basename "$session")"
@@ -92,7 +92,7 @@ case "$1" in
 		verify
 		for file in "$CACHEDIR"/*; do
 			fn=$(basename "$file")
-			echo ${fn:1}
+			echo "${fn:1}"
 		done
 		;;
 	default)
@@ -103,7 +103,7 @@ case "$1" in
 		fi
 		if [ ! -n "$2" ]; then
 			echo "Checking $(readlink "$CONFDIR/default")"
-			check $(readlink "$CONFDIR/default")
+			check "$(readlink "$CONFDIR/default")"
 		elif [ -x "$CONFDIR/sessions/$2" ]; then
 			echo "Setting default to $2"
 			ln -sf "$CONFDIR/sessions/$2" "$CONFDIR/default"
