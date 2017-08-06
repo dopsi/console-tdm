@@ -26,8 +26,10 @@ init(){
 	# build the directory tree if not exist
 	if [[ ! -d "${CONFDIR}" ]]; then
 		cp -Rv "${PREFIX}/share/tdm" "${CONFDIR}"
+		[ ! -d "${CONFDIR}/extra" ] && mkdir "${CONFDIR}/extra"
 	else
 		echo "Nothing done (configuration directory already present)."
+		echo "If you were asked to run 'tdmctl init', please check your configuration or remove '${CONFDIR}' and re-run 'tdmctl init'"
 	fi
 }
 
