@@ -1,23 +1,22 @@
 #!/bin/bash
 
-# This file is part of tdm.
-# 
+# tdm: session selector after login.
+
+# This file is part of tdm, a tiny display manager.
+#
 # tdm is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # tdm is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with tdm.  If not, see <http://www.gnu.org/licenses/>.
-# TDM, tbk display manager, or tiny display manager,
-# is a session selector after login.
-# It links the starting script to default and start
-# the startx script.
+
 VERSION=1.2.1
 
 # directory settings
@@ -116,7 +115,7 @@ if [ -d ${SESSIONS} ]; then
 	done
 else
 	echo "${SESSIONS} doesn't exist."
-	echo "making this directory."
+	echo "Making this directory."
 	mkdir -p ${SESSIONS}
 fi
 
@@ -174,11 +173,10 @@ elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
 	fi
 	startx
 else
-	echo "Unknown value,load default."
+	echo "Unknown value, load default."
 	if [ -x "${CONFDIR}/default" ]; then
 		startx
 	else
-		fallback "Session not defined,fallback."
+		fallback "Session not defined, fallback."
 	fi
 fi
-

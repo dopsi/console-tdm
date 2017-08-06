@@ -1,20 +1,28 @@
-# This file is part of tdm.
-# 
+# tdminit: script executed at login.
+
+# This file is part of tdm, a tiny display manager.
+#
 # tdm is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # tdm is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
-#uncomment to disable saving last session
+#
+# You should have received a copy of the GNU General Public License
+# along with tdm.  If not, see <http://www.gnu.org/licenses/>.
+
+# Uncomment to disable saving last session
 #SAVELAST=0
-#uncomment to use text UI instead of ncurses UI
+
+# Uncomment to use text UI instead of ncurses UI
 #TDMUI=tdm_text
-#uncomment to show linux logo
+
+# Uncomment to show linux logo
 #linux_logo -L classic
-#startx without selecting
+
+# Uncomment to start X without selecting a session
 #exec startx
