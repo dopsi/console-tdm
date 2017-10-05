@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with tdm.  If not, see <http://www.gnu.org/licenses/>.
 
-VERSION=1.2.2
+VERSION=1.2.3
 
 # directory settings
 CONFDIR="$HOME/.tdm"
@@ -135,7 +135,7 @@ if [ $TOTAL -eq 0 ]; then
 fi
 
 tdm_curses(){
-	sid=$(dialog --stdout ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]})
+	sid=$(dialog ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]})
 	[ -n "$sid" ]||fallback "Falling back to shell."
 }
 
