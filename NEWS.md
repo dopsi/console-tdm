@@ -1,5 +1,11 @@
 # News
 
+## [v1.2.4] 2017-10-06
+
+### Changed
+
+* Bugfix preventing tdm from relaunching after starting X
+
 ## [v1.2.3] 2017-08-06
 
 ### Changed
