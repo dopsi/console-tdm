@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with tdm.  If not, see <http://www.gnu.org/licenses/>.
 
-VERSION=1.2.4
+VERSION=1.2.3
 
 # directory settings
 CONFDIR="$HOME/.tdm"
@@ -106,7 +106,7 @@ if [ -d ${SESSIONS} ]; then
 			xsessions[$XID]="${script}"
 			NAME=$(basename ${script})
 			prglist=(${prglist[@]} ${XID} ${NAME})
-			if [ "${NAME}" == ${DEFAULTWM} ]; then
+			if [[ "${NAME}" == ${DEFAULTWM} ]]; then
 				DEFOPT="--default-item ${XID}"
 			fi
 			let XID=$(($XID+1))
@@ -135,8 +135,10 @@ if [ $TOTAL -eq 0 ]; then
 fi
 
 tdm_curses(){
-	dialog --stdout ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]}
-	sid=$?
+	tempfile="/tmp/tdm_$$"
+	trap "rm -f ${tempfile}" 0 1 2 3 6 9 14 15
+	dialog ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]} 2>${tempfile}
+	sid=$(cat ${tempfile})
 	[ -n "$sid" ]||fallback "Falling back to shell."
 }
 
