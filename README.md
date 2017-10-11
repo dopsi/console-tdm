@@ -153,3 +153,4 @@ Contributors:
 * Helvethor
 * hartwork
 * DuncanvR
+* amakovec
