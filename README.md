@@ -49,7 +49,8 @@ This will copy the tdm configuration directory to your home directory.
 
 2. You must then edit your `.profile` (or `.bash_profile`, `.zprofile`, etc...)
 file to call `tdm` as last command (this will launch tdm once you log into a
-tty).
+tty). If you want to allow multiple X sessions, you must use the 
+`--disable-xrunning-check` option.
 
 3. In your `.xinitrc` file, you must then replace the exec line with
 `exec tdm --xstart`, which will start your X session (if you do not have a

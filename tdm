@@ -65,12 +65,18 @@ if [[ -n $1 && $1 = "--xstart" ]]; then
 	fi
 fi
 
+if [[ -n "$1" ]] && [[ "$1" == "--disable-xrunning-check" ]] ; then
+    disable_xrunning_check=true
+else
+    disable_xrunning_check=false
+fi
+
 clear
 # check for a 'good' tty
 (basename $(tty)|grep -q tty) || fallback "Invalid tty"
 
 # X started, exit
-[[ $(ls -1 /tmp/.X11-unix | wc -l) -gt 0 ]] && fallback 'X started.'
+[[ ! $disable_xrunning_check ]] && [[ $(ls -1 /tmp/.X11-unix | wc -l) -gt 0 ]] && fallback 'X started.'
 
 # build confdir
 if [ ! -d "${CONFDIR}" ]; then

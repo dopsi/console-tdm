@@ -4,7 +4,7 @@ tdm \- a tiny display manager
 .SH SYNOPSIS
 .B
 tdm
-[\fB--xstart\fR]
+[\fB--xstart|--allow-multiple-logins\fR]
 .TP
 .B
 tdmctl
@@ -16,6 +16,14 @@ available sessions after login.  Sessions can be defined by creating symlinks
 to various programs or scripts, like your favourite window manager / desktop
 environment.
 .SH COMMANDS
+.SS tdm
+.TP
+.BR --xstart
+execute the chosen session from \fI.xinitrc\fR.
+.TP
+.BR --disable-xrunning-check
+allow multiple logins once X is already started. By default, tdm will refuse to start if X is already running.
+.SS tdmctl
 .TP
 .BR init
 initialize the config directory.
