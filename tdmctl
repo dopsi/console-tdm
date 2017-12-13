@@ -22,156 +22,156 @@ CACHEDIR="${CONFDIR}/cache"
 PREFIX=/usr/local
 
 init(){
-	[[ "$1" = "-f" || "$1" = "--force" ]]&&rm -rf "${CONFDIR}"
-	# build the directory tree if not exist
-	if [[ ! -d "${CONFDIR}" ]]; then
-		cp -Rv "${PREFIX}/share/tdm" "${CONFDIR}"
-		[ ! -d "${CONFDIR}/extra" ] && mkdir "${CONFDIR}/extra"
-	else
-		echo "Nothing done (configuration directory already present)."
-		echo "If you were asked to run 'tdmctl init', please check your configuration or remove '${CONFDIR}' and re-run 'tdmctl init'"
-	fi
+    [[ "$1" = "-f" || "$1" = "--force" ]]&&rm -rf "${CONFDIR}"
+    # build the directory tree if not exist
+    if [[ ! -d "${CONFDIR}" ]]; then
+        cp -Rv "${PREFIX}/share/tdm" "${CONFDIR}"
+        [ ! -d "${CONFDIR}/extra" ] && mkdir "${CONFDIR}/extra"
+    else
+        echo "Nothing done (configuration directory already present)."
+        echo "If you were asked to run 'tdmctl init', please check your configuration or remove '${CONFDIR}' and re-run 'tdmctl init'"
+    fi
 }
 
 usage(){
-	echo "tdmctl init: initialize the config directory."
-	echo "tdmctl list: list available sessions  (X and extra)."
-	echo "tdmctl cache: list cached files."
-	echo "tdmctl check [extra/]<session>: see what <session> is."
-	echo "tdmctl default [session]: show/set default X session."
-	echo "tdmctl add <name> <path> [X(default)/extra]: add a session."
-	echo "tdmctl remove <name>"
-	echo "tdmctl enable/disable <session>: enable/disable session."
-	exit
+    echo "tdmctl init: initialize the config directory."
+    echo "tdmctl list: list available sessions  (X and extra)."
+    echo "tdmctl cache: list cached files."
+    echo "tdmctl check [extra/]<session>: see what <session> is."
+    echo "tdmctl default [session]: show/set default X session."
+    echo "tdmctl add <name> <path> [X(default)/extra]: add a session."
+    echo "tdmctl remove <name>"
+    echo "tdmctl enable/disable <session>: enable/disable session."
+    exit
 }
 
 verify(){
-	if [ ! -d "${CONFDIR}" ] ; then
-		echo "Configuration directory '${CONFDIR}' does not exist"
-		echo "Please run 'tdmctl init' first"
-		exit
-	fi
-	if [ ! -d "${CONFDIR}/sessions" ] ; then
-		echo "Configuration directory '${CONFDIR}' does not exist"
-		echo "Please fix your configuration"
-		exit
-	fi
-	if [ ! -d "${CONFDIR}/extra" ] ; then
-		echo "Configuration directory '${CONFDIR}/extra' does not exist"
-		echo "Please fix your configuration"
-		exit
-	fi
+    if [ ! -d "${CONFDIR}" ] ; then
+        echo "Configuration directory '${CONFDIR}' does not exist"
+        echo "Please run 'tdmctl init' first"
+        exit
+    fi
+    if [ ! -d "${CONFDIR}/sessions" ] ; then
+        echo "Configuration directory '${CONFDIR}' does not exist"
+        echo "Please fix your configuration"
+        exit
+    fi
+    if [ ! -d "${CONFDIR}/extra" ] ; then
+        echo "Configuration directory '${CONFDIR}/extra' does not exist"
+        echo "Please fix your configuration"
+        exit
+    fi
 }
 
 
 check(){
-	readlink "$1" || cat "$1" 2>/dev/null || echo "$1 not found or missing read permission"
+    readlink "$1" || cat "$1" 2>/dev/null || echo "$1 not found or missing read permission"
 }
 
 if [ ! -n "$1" ]; then
-	usage
-	exit
+    usage
+    exit
 fi
 
 
 case "$1" in
-	init)
-		shift
-		init "$@"
-		;;
-	list)
-		verify
-		for session in "$CONFDIR/sessions"/*; do
-			[ -x "$session" ] && basename "$session"
-		done
-		for session in "$CONFDIR/extra"/*; do
-			[ -x "$session" ] && echo "extra/$(basename "$session")"
-		done
-		;;
-	cache)
-		verify
-		for file in "$CACHEDIR"/*; do
-			fn=$(basename "$file")
-			echo "${fn:1}"
-		done
-		;;
-	default)
-		verify
-		if [ ! -L "$CONFDIR/default" ] ; then
-			echo "No default session found"
-			exit 1
-		fi
-		if [ ! -n "$2" ]; then
-			echo "Checking $(readlink "$CONFDIR/default")"
-			check "$(readlink "$CONFDIR/default")"
-		elif [ -x "$CONFDIR/sessions/$2" ]; then
-			echo "Setting default to $2"
-			ln -sf "$CONFDIR/sessions/$2" "$CONFDIR/default"
-		else
-			echo "tdmctl error: $2 is not available"
-		fi
-		;;
-	check)
-		verify
-		if [ ! -n "$2" ]; then
-			usage
-		fi
-		if [[ "$2" == extra/* ]] ; then
-			FILE="$CONFDIR/$2"
-		else
-			FILE="$CONFDIR/sessions/$2"
-		fi
-		if [ -f "$FILE" ]; then
-			check "$FILE"
-		else
-			echo "$2 not exist!"
-			exit 1
-		fi
-		;;
-	add)
-		verify
-		[ -n "$3" ]||usage
-		if [[ "$4" == "X" || "$4" == "" ]]; then
-			ln -s "$3" "${CONFDIR}/sessions/$2"
-		elif [ "$4" == "extra" ]; then
-			ln -s "$3" "${CONFDIR}/extra/$2"
-		else
-			usage
-		fi
-		;;
-	remove)
-		verify
-		[ -n "$2" ] || usage
-		if [ -L "${CONFDIR}/sessions/$2" ]; then
-			rm -v "${CONFDIR}/sessions/$2"
-		fi
-		if [ -L "${CONFDIR}/extra/$2" ]; then
-			rm -v "${CONFDIR}/extra/$2"
-		fi
-		;;
-	enable)
-		verify
-		if [ -L "${CACHEDIR}/X$2" ]; then
-			mv -v "${CACHEDIR}/X$2" "${CONFDIR}/sessions/$2"
-		fi
-		if [ -L "${CACHEDIR}/E$2" ]; then
-			mv -v "${CACHEDIR}/E$2" "${CONFDIR}/extra/$2"
-		fi
-		;;
-	disable)
-		verify
-		if [ ! -d "${CACHEDIR}" ]; then
-			mkdir -p "${CACHEDIR}"
-		fi
+    init)
+        shift
+        init "$@"
+        ;;
+    list)
+        verify
+        for session in "$CONFDIR/sessions"/*; do
+            [ -x "$session" ] && basename "$session"
+        done
+        for session in "$CONFDIR/extra"/*; do
+            [ -x "$session" ] && echo "extra/$(basename "$session")"
+        done
+        ;;
+    cache)
+        verify
+        for file in "$CACHEDIR"/*; do
+            fn=$(basename "$file")
+            echo "${fn:1}"
+        done
+        ;;
+    default)
+        verify
+        if [ ! -L "$CONFDIR/default" ] ; then
+            echo "No default session found"
+            exit 1
+        fi
+        if [ ! -n "$2" ]; then
+            echo "Checking $(readlink "$CONFDIR/default")"
+            check "$(readlink "$CONFDIR/default")"
+        elif [ -x "$CONFDIR/sessions/$2" ]; then
+            echo "Setting default to $2"
+            ln -sf "$CONFDIR/sessions/$2" "$CONFDIR/default"
+        else
+            echo "tdmctl error: $2 is not available"
+        fi
+        ;;
+    check)
+        verify
+        if [ ! -n "$2" ]; then
+            usage
+        fi
+        if [[ "$2" == extra/* ]] ; then
+            FILE="$CONFDIR/$2"
+        else
+            FILE="$CONFDIR/sessions/$2"
+        fi
+        if [ -f "$FILE" ]; then
+            check "$FILE"
+        else
+            echo "$2 not exist!"
+            exit 1
+        fi
+        ;;
+    add)
+        verify
+        [ -n "$3" ]||usage
+        if [[ "$4" == "X" || "$4" == "" ]]; then
+            ln -s "$3" "${CONFDIR}/sessions/$2"
+        elif [ "$4" == "extra" ]; then
+            ln -s "$3" "${CONFDIR}/extra/$2"
+        else
+            usage
+        fi
+        ;;
+    remove)
+        verify
+        [ -n "$2" ] || usage
+        if [ -L "${CONFDIR}/sessions/$2" ]; then
+            rm -v "${CONFDIR}/sessions/$2"
+        fi
+        if [ -L "${CONFDIR}/extra/$2" ]; then
+            rm -v "${CONFDIR}/extra/$2"
+        fi
+        ;;
+    enable)
+        verify
+        if [ -L "${CACHEDIR}/X$2" ]; then
+            mv -v "${CACHEDIR}/X$2" "${CONFDIR}/sessions/$2"
+        fi
+        if [ -L "${CACHEDIR}/E$2" ]; then
+            mv -v "${CACHEDIR}/E$2" "${CONFDIR}/extra/$2"
+        fi
+        ;;
+    disable)
+        verify
+        if [ ! -d "${CACHEDIR}" ]; then
+            mkdir -p "${CACHEDIR}"
+        fi
 # backup to cache
-		if [ -L "${CONFDIR}/sessions/$2" ]; then
-			mv -v "${CONFDIR}/sessions/$2" "${CACHEDIR}/X$2"
-		fi
-		if [ -L "${CONFDIR}/extra/$2" ]; then
-			mv -v "${CONFDIR}/extra/$2" "${CACHEDIR}/E$2"
-		fi
-		;;
-	*)
-		usage
-		;;
+        if [ -L "${CONFDIR}/sessions/$2" ]; then
+            mv -v "${CONFDIR}/sessions/$2" "${CACHEDIR}/X$2"
+        fi
+        if [ -L "${CONFDIR}/extra/$2" ]; then
+            mv -v "${CONFDIR}/extra/$2" "${CACHEDIR}/E$2"
+        fi
+        ;;
+    *)
+        usage
+        ;;
 esac

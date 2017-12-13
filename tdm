@@ -26,31 +26,31 @@ EXTRA=${CONFDIR}/extra
 SAVELAST=1
 
 nulltype(){
-	type "$1" > /dev/null 2>/dev/null
+    type "$1" > /dev/null 2>/dev/null
 }
 
 fallback(){
-	if [[ -n $1 ]]; then
-		echo -e "\033[31;1m$1\033[0m"
-	fi
-	exit 1
+    if [[ -n $1 ]]; then
+        echo -e "\033[31;1m$1\033[0m"
+    fi
+    exit 1
 }
 
 get_needs(){
-	local _type=$(file -p --mime-type "$1" | awk '{print $2}' | cut -d'/' -f1)
-	if [ ${_type} == "text" ]; then
-		grep '#[ \t]*needs[ \t]*:' "$1"|sed -e 's/#.*://g'
-	fi
+    local _type=$(file -p --mime-type "$1" | awk '{print $2}' | cut -d'/' -f1)
+    if [ ${_type} == "text" ]; then
+        grep '#[ \t]*needs[ \t]*:' "$1"|sed -e 's/#.*://g'
+    fi
 }
 
 valid_item(){
-	local needs
-	needs=($(get_needs "$1"))
-	for _i in ${needs[@]}
-	do
-		nulltype ${_i} || return 1
-	done
-	return 0
+    local needs
+    needs=($(get_needs "$1"))
+    for _i in ${needs[@]}
+    do
+        nulltype ${_i} || return 1
+    done
+    return 0
 }
 
 if [ -z "$XDG_VTNR" ]; then
@@ -60,14 +60,14 @@ fi
 
 # started from startx, so start session
 if [[ -n $1 && $1 = "--xstart" ]]; then
-	if [[ -f "${CONFDIR}/tdmexit" ]]; then
-		. "${CONFDIR}/tdmexit"
-	fi
-	if [[ -x "/tmp/tdmdefault" ]]; then
-		exec /tmp/tdmdefault
-	else
-		exec "${CONFDIR}/default"
-	fi
+    if [[ -f "${CONFDIR}/tdmexit" ]]; then
+        . "${CONFDIR}/tdmexit"
+    fi
+    if [[ -x "/tmp/tdmdefault" ]]; then
+        exec /tmp/tdmdefault
+    else
+        exec "${CONFDIR}/default"
+    fi
 fi
 
 if [[ -n "$1" ]] && [[ "$1" == "--disable-xrunning-check" ]] ; then
@@ -85,12 +85,12 @@ clear
 
 # build confdir
 if [ ! -d "${CONFDIR}" ]; then
-	tdmctl init
+    tdmctl init
 fi
 
 # otherwise, run as the session chosen script
 if [[ -f "${CONFDIR}/tdminit" ]]; then
-	source "${CONFDIR}/tdminit"
+    source "${CONFDIR}/tdminit"
 fi
 
 # XID: X session Number
@@ -104,93 +104,93 @@ prglist=()
 DEFOPT=""
 
 if [[ -x "${CONFDIR}/default" ]]; then
-	SDEFAULT=$(readlink "${CONFDIR}/default")
-	DEFAULTWM=$(basename ${SDEFAULT})
+    SDEFAULT=$(readlink "${CONFDIR}/default")
+    DEFAULTWM=$(basename ${SDEFAULT})
 else
-	SDEFAULT=
-	DEFAULTWM=
+    SDEFAULT=
+    DEFAULTWM=
 fi
 
 if [ -d ${SESSIONS} ]; then
-	for script in "${SESSIONS}"/*; do
-		if [ -x "${script}" ] && valid_item "${script}" ; then
-			xsessions[$XID]="${script}"
-			NAME=$(basename ${script})
-			prglist=(${prglist[@]} ${XID} ${NAME})
-			if [[ "${NAME}" == ${DEFAULTWM} ]]; then
-				DEFOPT="--default-item ${XID}"
-			fi
-			let XID=$(($XID+1))
-			let TOTAL=$(($TOTAL+1))
-		fi
-	done
+    for script in "${SESSIONS}"/*; do
+        if [ -x "${script}" ] && valid_item "${script}" ; then
+            xsessions[$XID]="${script}"
+            NAME=$(basename ${script})
+            prglist=(${prglist[@]} ${XID} ${NAME})
+            if [[ "${NAME}" == ${DEFAULTWM} ]]; then
+                DEFOPT="--default-item ${XID}"
+            fi
+            let XID=$(($XID+1))
+            let TOTAL=$(($TOTAL+1))
+        fi
+    done
 else
-	echo "${SESSIONS} doesn't exist."
-	echo "Making this directory."
-	mkdir -p ${SESSIONS}
+    echo "${SESSIONS} doesn't exist."
+    echo "Making this directory."
+    mkdir -p ${SESSIONS}
 fi
 
 if [ -d ${EXTRA} ]; then
-	for script in "${EXTRA}"/*; do
-		if [ -x "${script}" ] && valid_item "${script}" ; then
-			xsessions[$TOTAL]="${script}"
-			NAME="extra/$(basename ${script})"
-			prglist=(${prglist[@]} ${TOTAL} ${NAME})
-			let TOTAL=$(($TOTAL+1))
-		fi
-	done
+    for script in "${EXTRA}"/*; do
+        if [ -x "${script}" ] && valid_item "${script}" ; then
+            xsessions[$TOTAL]="${script}"
+            NAME="extra/$(basename ${script})"
+            prglist=(${prglist[@]} ${TOTAL} ${NAME})
+            let TOTAL=$(($TOTAL+1))
+        fi
+    done
 fi
 
 if [ $TOTAL -eq 0 ]; then
-	fallback "No sessions found."
+    fallback "No sessions found."
 fi
 
 tdm_curses(){
-	tempfile="/tmp/tdm_$$"
-	trap "rm -f ${tempfile}" 0 1 2 3 6 9 14 15
-	dialog ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]} 2>${tempfile}
-	sid=$(cat ${tempfile})
-	[ -n "$sid" ]||fallback "Falling back to shell."
+    tempfile="/tmp/tdm_$$"
+    trap "rm -f ${tempfile}" 0 1 2 3 6 9 14 15
+    dialog ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]} 2>${tempfile}
+    sid=$(cat ${tempfile})
+    [ -n "$sid" ]||fallback "Falling back to shell."
 }
 
 tdm_text(){
-	echo "This is TDM ${VERSION}, a tiny display manager."
-	echo "Please select from the following: (default ${DEFAULTWM})"
+    echo "This is TDM ${VERSION}, a tiny display manager."
+    echo "Please select from the following: (default ${DEFAULTWM})"
 
-	local _i=0
-	while [ ${_i} -lt ${TOTAL} ]
-	do
-		echo ${_i} ${prglist[${_i}*2+1]}
-		let _i=${_i}+1
-	done
+    local _i=0
+    while [ ${_i} -lt ${TOTAL} ]
+    do
+        echo ${_i} ${prglist[${_i}*2+1]}
+        let _i=${_i}+1
+    done
 
-	echo -n "Program ID: "
-	read sid
+    echo -n "Program ID: "
+    read sid
 }
 
 if ! nulltype dialog; then
 #no dialog program, force to use tdm_text
-	TDMUI=tdm_text
+    TDMUI=tdm_text
 elif [ ! "${TDMUI}" == "tdm_text" ]; then
-	TDMUI=tdm_curses
+    TDMUI=tdm_curses
 fi
 ${TDMUI}
 
 rm -f /tmp/tdmdefault
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $XID) ]]; then
-	exec ${xsessions[$sid]}
+    exec ${xsessions[$sid]}
 elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
-	if [[ ${SAVELAST} -ne 0 ]]; then
-		ln -sf ${xsessions[${sid}]} "${CONFDIR}/default"
-	else
-		ln -sf ${xsessions[${sid}]} "/tmp/tdmdefault"
-	fi
-	startx
+    if [[ ${SAVELAST} -ne 0 ]]; then
+        ln -sf ${xsessions[${sid}]} "${CONFDIR}/default"
+    else
+        ln -sf ${xsessions[${sid}]} "/tmp/tdmdefault"
+    fi
+    startx
 else
-	echo "Unknown value, load default."
-	if [ -x "${CONFDIR}/default" ]; then
-		startx
-	else
-		fallback "Session not defined, fallback."
-	fi
+    echo "Unknown value, load default."
+    if [ -x "${CONFDIR}/default" ]; then
+        startx
+    else
+        fallback "Session not defined, fallback."
+    fi
 fi
