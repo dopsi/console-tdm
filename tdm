@@ -19,15 +19,21 @@
 
 VERSION=1.2.4
 
-# directory settings
-CONFDIR="$HOME/.tdm"
-SESSIONS=${CONFDIR}/sessions
-EXTRA=${CONFDIR}/extra
-SAVELAST=1
-
 nulltype(){
     type "$1" > /dev/null 2>/dev/null
 }
+
+function load_confdir_path() {
+    # usage: load_confdir_path
+    for cfd in "${XDG_CONFIG_HOME:-$HOME/.config}/tdm" "$HOME/.tdm" ; do
+        if [ -d "$cfd" ] ; then
+            echo "$cfd"
+            return
+        fi
+    done
+    echo "${XDG_CONFIG_HOME:-$HOME/.config}/tdm"
+}
+
 
 fallback(){
     if [[ -n $1 ]]; then
@@ -52,6 +58,18 @@ valid_item(){
     done
     return 0
 }
+
+# directory settings
+CONFDIR="$(load_confdir_path)"
+SESSIONS=${CONFDIR}/sessions
+EXTRA=${CONFDIR}/extra
+SAVELAST=1
+
+if [ "$CONFDIR" == "$HOME/.tdm" ] ; then
+    echo "Following tdm v1.3.0, the configuration files should be moved to '${XDG_CONFIG_HOME:-$HOME/.config}/tdm' in order to become XDG compliant"
+    echo "Use 'tdmctl migrate' to automatically migrate your configuration to the new location"
+    echo "Support for the old configuration directory ($CONFDIR) will be dropped in tdm 2.x.y"
+fi
 
 if [ -z "$XDG_VTNR" ]; then
     XDG_VTNR="$(tty | sed -n -e 's|^/dev/tty\([1-9][0-9]*\)|\1|p')"
