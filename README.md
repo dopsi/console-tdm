@@ -1,7 +1,7 @@
 # tdm
 
 [![AUR](https://img.shields.io/aur/version/console-tdm.svg)](https://aur.archlinux.org/packages/console-tdm)
-[![GitHub release](https://img.shields.io/github/release/dopsi/console-tdm.svg)](https://github.com/dopsi/console-tdm/releases/latest)
+[![GitHub release](https://img.shields.io/github/tag/dopsi/console-tdm.svg)](https://github.com/dopsi/console-tdm/releases/latest)
 
 The TDM display manager is a wrapper script for `startx`.
 
