@@ -37,24 +37,25 @@ function load_confdir_path() {
 
 fallback(){
     if [[ -n $1 ]]; then
-        echo -e "\033[31;1m$1\033[0m"
+        echo -e '\033[31;1m'"$1"'\033[0m'
     fi
     exit 1
 }
 
 get_needs(){
-    local _type=$(file -p --mime-type "$1" | awk '{print $2}' | cut -d'/' -f1)
-    if [ ${_type} == "text" ]; then
+    local _type
+    _type="$(file -p --mime-type "$1" | awk '{print $2}' | cut -d'/' -f1)"
+    if [ "${_type}" == "text" ]; then
         grep '#[ \t]*needs[ \t]*:' "$1"|sed -e 's/#.*://g'
     fi
 }
 
 valid_item(){
     local needs
-    needs=($(get_needs "$1"))
-    for _i in ${needs[@]}
+    read -r -a needs<<<"$(get_needs "$1")"
+    for _i in "${needs[@]}"
     do
-        nulltype ${_i} || return 1
+        nulltype "${_i}" || return 1
     done
     return 0
 }
@@ -96,10 +97,10 @@ fi
 
 clear
 # check for a 'good' tty
-(basename $(tty)|grep -q tty) || fallback "Invalid tty"
+(basename "$(tty)" |grep -q tty) || fallback "Invalid tty"
 
 # X started, exit
-[[ ! $disable_xrunning_check ]] && [[ $(ls -1 /tmp/.X11-unix | wc -l) -gt 0 ]] && fallback 'X started.'
+[[ ! $disable_xrunning_check ]] && [[ "$(find /tmp/.X11-unix -type s | wc -l)" -gt 0 ]] && fallback 'X started.'
 
 # build confdir
 if [ ! -d "${CONFDIR}" ]; then
@@ -115,46 +116,46 @@ fi
 # TOTAL: Number of items
 # sid : id that user selects
 
-let XID=0
-let TOTAL=0
+((XID=0))
+((TOTAL=0))
 xsessions=()
 prglist=()
 DEFOPT=""
 
 if [[ -x "${CONFDIR}/default" ]]; then
     SDEFAULT=$(readlink "${CONFDIR}/default")
-    DEFAULTWM=$(basename ${SDEFAULT})
+    DEFAULTWM=$(basename "${SDEFAULT}")
 else
     SDEFAULT=
     DEFAULTWM=
 fi
 
-if [ -d ${SESSIONS} ]; then
+if [ -d "${SESSIONS}" ]; then
     for script in "${SESSIONS}"/*; do
         if [ -x "${script}" ] && valid_item "${script}" ; then
             xsessions[$XID]="${script}"
-            NAME=$(basename ${script})
-            prglist=(${prglist[@]} ${XID} ${NAME})
-            if [[ "${NAME}" == ${DEFAULTWM} ]]; then
+            NAME=$(basename "${script}")
+            prglist=("${prglist[@]}" "${XID}" "${NAME}")
+            if [[ "${NAME}" == "${DEFAULTWM}" ]]; then
                 DEFOPT="--default-item ${XID}"
             fi
-            let XID=$(($XID+1))
-            let TOTAL=$(($TOTAL+1))
+            (( XID=XID+1 ))
+            (( TOTAL=TOTAL+1 ))
         fi
     done
 else
     echo "${SESSIONS} doesn't exist."
     echo "Making this directory."
-    mkdir -p ${SESSIONS}
+    mkdir -p "${SESSIONS}"
 fi
 
-if [ -d ${EXTRA} ]; then
+if [ -d "${EXTRA}" ]; then
     for script in "${EXTRA}"/*; do
         if [ -x "${script}" ] && valid_item "${script}" ; then
             xsessions[$TOTAL]="${script}"
-            NAME="extra/$(basename ${script})"
-            prglist=(${prglist[@]} ${TOTAL} ${NAME})
-            let TOTAL=$(($TOTAL+1))
+            NAME="extra/$(basename "${script}")"
+            prglist=("${prglist[@]}" "${TOTAL}" "${NAME}")
+            (( TOTAL=TOTAL+1 ))
         fi
     done
 fi
@@ -165,8 +166,8 @@ fi
 
 tdm_curses(){
     tempfile="/tmp/tdm_$$"
-    trap "rm -f ${tempfile}" 0 1 2 3 6 9 14 15
-    dialog ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 ${prglist[@]} 2>${tempfile}
+    trap 'rm -f ${tempfile}' 0 1 2 3 6 14 15
+    dialog "${DEFOPT}" --menu "TDM ${VERSION}" 0 0 0 "${prglist[@]}" 2>${tempfile}
     sid=$(cat ${tempfile})
     [ -n "$sid" ]||fallback "Falling back to shell."
 }
@@ -178,12 +179,12 @@ tdm_text(){
     local _i=0
     while [ ${_i} -lt ${TOTAL} ]
     do
-        echo ${_i} ${prglist[${_i}*2+1]}
-        let _i=${_i}+1
+        echo "${_i} ${prglist[${_i}*2+1]}"
+        (( _i=_i+1 ))
     done
 
     echo -n "Program ID: "
-    read sid
+    read -r sid
 }
 
 if ! nulltype dialog; then
@@ -196,12 +197,12 @@ ${TDMUI}
 
 rm -f /tmp/tdmdefault
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $XID) ]]; then
-    exec ${xsessions[$sid]}
+    exec "${xsessions[$sid]}"
 elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
     if [[ ${SAVELAST} -ne 0 ]]; then
-        ln -sf ${xsessions[${sid}]} "${CONFDIR}/default"
+        ln -sf "${xsessions[${sid}]}" "${CONFDIR}/default"
     else
-        ln -sf ${xsessions[${sid}]} "/tmp/tdmdefault"
+        ln -sf "${xsessions[${sid}]}" "/tmp/tdmdefault"
     fi
     startx
 else
