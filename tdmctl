@@ -49,6 +49,7 @@ usage(){
     echo "tdmctl add <name> <path> [X(default)/extra]: add a session."
     echo "tdmctl remove <name>"
     echo "tdmctl enable/disable <session>: enable/disable session."
+    echo "tdmctl migrate"
     exit
 }
 
