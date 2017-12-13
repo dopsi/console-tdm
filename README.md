@@ -111,8 +111,7 @@ Migrate configuration to XDG compliant directory
 
     tdmctl migrate
 
-Versioning
------------
+## Versioning
 
 This project follows the semantic versioning guidelines provided at
 [semver.org](http://semver.org/) with versions numbered as `MAJOR.MINOR.
@@ -127,8 +126,11 @@ should its API.
 
 Versions history can be found in the file ChangeLog.md
 
-License
--------
+## Repository structure
+
+This repository uses [git flow](https://github.com/nvie/gitflow).
+
+## License
 
 > This file is part of tdm.
 >
@@ -145,8 +147,7 @@ License
 > You should have received a copy of the GNU General Public License
 > along with tdm.  If not, see <http://www.gnu.org/licenses/>.
 
-Authors
-=======
+## Authors
 
 Currently maintained by dopsi.
 
