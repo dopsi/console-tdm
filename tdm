@@ -53,6 +53,11 @@ valid_item(){
 	return 0
 }
 
+if [ -z "$XDG_VTNR" ]; then
+    XDG_VTNR="$(tty | sed -n -e 's|^/dev/tty\([1-9][0-9]*\)|\1|p')"
+    export XDG_VTNR
+fi
+
 # started from startx, so start session
 if [[ -n $1 && $1 = "--xstart" ]]; then
 	if [[ -f "${CONFDIR}/tdmexit" ]]; then
