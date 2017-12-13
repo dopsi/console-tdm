@@ -105,7 +105,11 @@ Remove session
 
 Enable or disable session
 
-    tdmctl enable/disable <session>: enable/disable session
+    tdmctl enable/disable <session>
+
+Migrate configuration to XDG compliant directory
+
+    tdmctl migrate
 
 Versioning
 -----------
