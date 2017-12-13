@@ -77,7 +77,11 @@ check(){
 }
 
 function migrate() {
-    mv -v "$CONFDIR" "${XDG_CONFIG_HOME:-$HOME/.config}/tdm"
+    if [ "$CONFDIR" != "${XDG_CONFIG_HOME:-$HOME/.config}/tdm" ] ; then
+        mv -v "$CONFDIR" "${XDG_CONFIG_HOME:-$HOME/.config}/tdm"
+    else
+        echo "A configuration is already present in '${XDG_CONFIG_HOME:-$HOME/.config}/tdm'. Please migrate manually."
+    fi
 }
 
 CONFDIR="$(load_confdir_path)"
