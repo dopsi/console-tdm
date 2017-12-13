@@ -17,9 +17,16 @@
 # You should have received a copy of the GNU General Public License
 # along with tdm.  If not, see <http://www.gnu.org/licenses/>.
 
-CONFDIR="$HOME/.tdm"
-CACHEDIR="${CONFDIR}/cache"
-PREFIX=/usr/local
+function load_confdir_path() {
+    # usage: load_confdir_path
+    for cfd in "${XDG_CONFIG_HOME:-$HOME/.config}/tdm" "$HOME/.tdm" ; do
+        if [ -d "$cfd" ] ; then
+            echo "$cfd"
+            return
+        fi
+    done
+    echo "${XDG_CONFIG_HOME:-$HOME/.config}/tdm"
+}
 
 init(){
     [[ "$1" = "-f" || "$1" = "--force" ]]&&rm -rf "${CONFDIR}"
@@ -67,6 +74,20 @@ verify(){
 check(){
     readlink "$1" || cat "$1" 2>/dev/null || echo "$1 not found or missing read permission"
 }
+
+function migrate() {
+    mv -v "$CONFDIR" "${XDG_CONFIG_HOME:-$HOME/.config}/tdm"
+}
+
+CONFDIR="$(load_confdir_path)"
+CACHEDIR="${CONFDIR}/cache"
+PREFIX=/usr/local
+
+if [ "$CONFDIR" == "$HOME/.tdm" ] ; then
+    echo "Following tdm v1.3.0, the configuration files should be moved to '${XDG_CONFIG_HOME:-$HOME/.config}/tdm' in order to become XDG compliant"
+    echo "Use 'tdmctl migrate' to automatically migrate your configuration to the new location"
+    echo "Support for the old configuration directory ($CONFDIR) will be dropped in tdm 2.x.y"
+fi
 
 if [ ! -n "$1" ]; then
     usage
@@ -170,6 +191,9 @@ case "$1" in
         if [ -L "${CONFDIR}/extra/$2" ]; then
             mv -v "${CONFDIR}/extra/$2" "${CACHEDIR}/E$2"
         fi
+        ;;
+    migrate)
+        migrate
         ;;
     *)
         usage
