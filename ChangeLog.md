@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [2017-12-13] 1.3.0: Version 1.3.0
+
+* Create the --disable-xrunning-check
+* Add XDG_VTNR support
+* Use spaces instead of tabs
+* Rewrite the changelog using an automated tool
+* Make the tdm script XDG compliant
+* Make tdmctl XDG compliant
+* Add XDG compliance informations to manpage
+* Fix shellcheck coding style issues
+* Update help message in tdmctl
+* Check if a configuration exists before migrating
+* Update README.md documentation
+* Update shields
+* Improve README style and content
+
 ## [2017-10-11] v1.2.4: Version bump: 1.2.3 -> 1.2.4
 
 * Fix tdm relaunch after killing X. (#16)
