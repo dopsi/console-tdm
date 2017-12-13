@@ -49,6 +49,7 @@ usage(){
     echo "tdmctl add <name> <path> [X(default)/extra]: add a session."
     echo "tdmctl remove <name>"
     echo "tdmctl enable/disable <session>: enable/disable session."
+    echo "tdmctl migrate"
     exit
 }
 
@@ -76,7 +77,11 @@ check(){
 }
 
 function migrate() {
-    mv -v "$CONFDIR" "${XDG_CONFIG_HOME:-$HOME/.config}/tdm"
+    if [ "$CONFDIR" != "${XDG_CONFIG_HOME:-$HOME/.config}/tdm" ] ; then
+        mv -v "$CONFDIR" "${XDG_CONFIG_HOME:-$HOME/.config}/tdm"
+    else
+        echo "A configuration is already present in '${XDG_CONFIG_HOME:-$HOME/.config}/tdm'. Please migrate manually."
+    fi
 }
 
 CONFDIR="$(load_confdir_path)"
