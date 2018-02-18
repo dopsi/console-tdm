@@ -167,7 +167,7 @@ fi
 tdm_curses(){
     tempfile="/tmp/tdm_$$"
     trap 'rm -f ${tempfile}' 0 1 2 3 6 14 15
-    dialog "${DEFOPT}" --menu "TDM ${VERSION}" 0 0 0 "${prglist[@]}" 2>${tempfile}
+    dialog ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 "${prglist[@]}" 2>${tempfile}
     sid=$(cat ${tempfile})
     [ -n "$sid" ]||fallback "Falling back to shell."
 }
