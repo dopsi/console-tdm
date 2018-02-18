@@ -4,7 +4,7 @@ tdm \- a tiny display manager
 .SH SYNOPSIS
 .B
 tdm
-[\fB--xstart\fR]
+[\fB--xstart|--allow-multiple-logins\fR]
 .TP
 .B
 tdmctl
@@ -16,6 +16,14 @@ available sessions after login.  Sessions can be defined by creating symlinks
 to various programs or scripts, like your favourite window manager / desktop
 environment.
 .SH COMMANDS
+.SS tdm
+.TP
+.BR --xstart
+execute the chosen session from \fI.xinitrc\fR.
+.TP
+.BR --disable-xrunning-check
+allow multiple logins once X is already started. By default, tdm will refuse to start if X is already running.
+.SS tdmctl
 .TP
 .BR init
 initialize the config directory.
@@ -44,12 +52,18 @@ enable \fISESSION\fR
 .TP
 .BR disable " " \fISESSION\fR
 disable \fISESSION\fR
+.TP
+.BR migrate
+Migrate an old configuration to make it XDG compliant (see \fBFILES AND DIRECTORIES\fR)
 .SH RETURN VALUE
 If no session was executed, returns 1. Otherwise 0.
 .SH FILES AND DIRECTORIES
 .TP
-.BR ~/.tdm/tdminit
+The main configuration directory (hereafter named \fI$TDM_CONFIG\fR) is located in \fI$XDG_CONFIG_HOME/tdm\fR. Older installations (before 1.3.0) used \fI$HOME/.tdm\fR
+(the migration can be achieved with \fBtdmctl migrate\fR).
+.TP
+.BR $TDM_CONFIG_DIR/tdminit
 commands executed at login
 .TP
-.BR ~/.tdm/tdmexit
+.BR $TDM_CONFIG_DIR/tdmexit
 commands executed before the X server (or extra session) is started

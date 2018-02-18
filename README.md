@@ -1,7 +1,7 @@
 # tdm
 
 [![AUR](https://img.shields.io/aur/version/console-tdm.svg)](https://aur.archlinux.org/packages/console-tdm)
-[![GitHub release](https://img.shields.io/github/release/dopsi/console-tdm.svg)](https://github.com/dopsi/console-tdm/releases/latest)
+[![GitHub release](https://img.shields.io/github/tag/dopsi/console-tdm.svg)](https://github.com/dopsi/console-tdm/releases/latest)
 
 The TDM display manager is a wrapper script for `startx`.
 
@@ -49,7 +49,8 @@ This will copy the tdm configuration directory to your home directory.
 
 2. You must then edit your `.profile` (or `.bash_profile`, `.zprofile`, etc...)
 file to call `tdm` as last command (this will launch tdm once you log into a
-tty).
+tty). If you want to allow multiple X sessions, you must use the 
+`--disable-xrunning-check` option.
 
 3. In your `.xinitrc` file, you must then replace the exec line with
 `exec tdm --xstart`, which will start your X session (if you do not have a
@@ -104,10 +105,13 @@ Remove session
 
 Enable or disable session
 
-    tdmctl enable/disable <session>: enable/disable session
+    tdmctl enable/disable <session>
 
-Versioning
------------
+Migrate configuration to XDG compliant directory
+
+    tdmctl migrate
+
+## Versioning
 
 This project follows the semantic versioning guidelines provided at
 [semver.org](http://semver.org/) with versions numbered as `MAJOR.MINOR.
@@ -122,8 +126,11 @@ should its API.
 
 Versions history can be found in the file ChangeLog.md
 
-License
--------
+## Repository structure
+
+This repository uses [git flow](https://github.com/nvie/gitflow).
+
+## License
 
 > This file is part of tdm.
 >
@@ -140,8 +147,7 @@ License
 > You should have received a copy of the GNU General Public License
 > along with tdm.  If not, see <http://www.gnu.org/licenses/>.
 
-Authors
-=======
+## Authors
 
 Currently maintained by dopsi.
 
@@ -153,3 +159,4 @@ Contributors:
 * Helvethor
 * hartwork
 * DuncanvR
+* amakovec

@@ -1,78 +1,83 @@
-# Change Log
+# ChangeLog
 
-All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
+## [2017-12-13] 1.3.0: Version 1.3.0
 
-## [v1.2.4] 2017-10-06
+* Create the --disable-xrunning-check
+* Add XDG_VTNR support
+* Use spaces instead of tabs
+* Rewrite the changelog using an automated tool
+* Make the tdm script XDG compliant
+* Make tdmctl XDG compliant
+* Add XDG compliance informations to manpage
+* Fix shellcheck coding style issues
+* Update help message in tdmctl
+* Check if a configuration exists before migrating
+* Update README.md documentation
+* Update shields
+* Improve README style and content
 
-### Changed
+## [2017-10-11] v1.2.4: Version bump: 1.2.3 -> 1.2.4
 
-* tdm: Bugfix preventing tdm from relaunching after starting X
+* Fix tdm relaunch after killing X. (#16)
 
-## [v1.2.3] 2017-10-05
+## [2017-10-05] v1.2.3: Fix relaunching of tdm
 
-### Changed
+* Fix relaunching of tdm
 
-* tdm: fix bug preventing the relaunch of tdm
+## [2017-08-06] v1.2.2: Version bump 1.2.1 -> 1.2.2
 
-## [v1.2.2] 2017-08-06
+* Add badges
+* Add screenshots
+* Add symlink for xmonad (#12)
+* Various cleanup steps (#13)
+* Fix the missing 'extra' directory when creating a new configuration
+* Fix quotes and useless commands
 
-### Changed
+## [2017-03-28] v1.2.1: Version and documentation update
 
-* tdmctl: create the `extra` directory if missing on new configuration
-* tdmctl: new information message in case of error during the `init`
-* tdmctl: fix shellcheck issues
-* various files: fix issues with whitespace and wording (by DuncanvR)
+* Add contributors
+* Revert "Log the user out"
+* Return non-zero and no logout
+* Version and documentation update
 
-## [v1.2.1] 2017-03-28
+## [2017-03-25] v1.2.0: Add more explicit message
 
-### Changed
+* Hardened X server detection (#5)
+* Keep track of changes
+* Log the user out
+* Do not fail if no default
+* Documentation updates suggested by @hartwork
+* Also check for extra sessions
+* Add more explicit message
 
-* tdm: revert the user getting logged out
-* tdm: return non-zero if no session was executed
+## [2017-02-24] v1.1.2: Add documentation
 
-## [v1.2.0] 2017-03-25
+* Makefile: Support DESTDIR
+* Add documentation
 
-### Changed
+## [2016-08-04] v1.1.1: Fix PREFIX usage in tdmctl and Makefile. Closes #1
 
-* tdm: change X process detection method
-* tdmctl: check extra sessions
-* tdmctl: more explicit error messages if the command is not found
-* tdmctl: handle no default installations
-* tdm: actually log the user out
+* Fix typos and url
+* Fix PREFIX usage in tdmctl and Makefile. Closes #1
 
-## [v1.1.2] 2017-02-24
+## [2016-02-17] v1.1.0: Version bump (1.1.0)
 
-### Changed
+* Fix directories installation
+* Add verification feature to tdmctl
+* Fix errors if already existing symlinks
+* Fix cache functionnality
+* Add manpage
+* Also list extra sessions
+* Fix manpage
+* Add remove command
+* Add remove functionnality to manpage
+* Add license and license headers
+* Update README.md
 
-* Makefile: use DESTDIR (thanks @hartwork)
-* README.md: add installation and usage
+## [2015-12-31] v1.0.0: Change version
 
-## [v1.1.1] 2016-08-04
+* Change version
 
-### Changed
+## [2015-12-30] v0.4.0: Update README with original source
 
-* tdmctl: set PREFIX to /usr/local (to be consistent with Makefile)
-* Makefile (bin): set the prefix in tdmctl to the same value as in Makefile
-
-## [v1.1.0] 2016-02-17
-
-### New features
-
-* tdmctl (verify): add verification function to check for directory structure integrity
-* tdmctl: add the remove command and update the usage message
-* Makefile (doc): add new target to install documentation
-* tdm.1: add manpage
-
-### Changed
-
-* Makefile (scripts): add the extra directory to the default configuration
-* tdmctl (main script): add verification
-  (cache functionality): put extra session in correct directory and check for links
-* links.sh (main script): force symlink replacement if already existing
-
-## [v1.0.0] 2015-12-31
-
-### Changed
-
-* tdm (version number): changed to 1.0.0
+* Update README with original source
