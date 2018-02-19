@@ -120,7 +120,7 @@ fi
 ((TOTAL=0))
 xsessions=()
 prglist=()
-DEFOPT=""
+DEFOPT=()
 
 if [[ -x "${CONFDIR}/default" ]]; then
     SDEFAULT=$(readlink "${CONFDIR}/default")
@@ -137,7 +137,7 @@ if [ -d "${SESSIONS}" ]; then
             NAME=$(basename "${script}")
             prglist=("${prglist[@]}" "${XID}" "${NAME}")
             if [[ "${NAME}" == "${DEFAULTWM}" ]]; then
-                DEFOPT="--default-item ${XID}"
+                DEFOPT=("--default-item" "${XID}")
             fi
             (( XID=XID+1 ))
             (( TOTAL=TOTAL+1 ))
@@ -167,7 +167,7 @@ fi
 tdm_curses(){
     tempfile="/tmp/tdm_$$"
     trap 'rm -f ${tempfile}' 0 1 2 3 6 14 15
-    dialog ${DEFOPT} --menu "TDM ${VERSION}" 0 0 0 "${prglist[@]}" 2>${tempfile}
+    dialog "${DEFOPT[@]}" --menu "TDM ${VERSION}" 0 0 0 "${prglist[@]}" 2>${tempfile}
     sid=$(cat ${tempfile})
     [ -n "$sid" ]||fallback "Falling back to shell."
 }
