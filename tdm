@@ -92,7 +92,7 @@ fi
 if [[ -n "$1" ]] && [[ "$1" == "--disable-xrunning-check" ]] ; then
     disable_xrunning_check=true
 else
-    disable_xrunning_check=false
+    disable_xrunning_check=""
 fi
 
 clear
