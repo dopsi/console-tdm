@@ -160,3 +160,4 @@ Contributors:
 * hartwork
 * DuncanvR
 * amakovec
+* fellowseb
