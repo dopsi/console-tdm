@@ -1,6 +1,15 @@
 # ChangeLog
 
-## [2017-12-13] 1.3.0: Version 1.3.0
+## [2018-07-05] v1.3.2: Version 1.3.2
+
+* Fix disable_xrunning_check flag not working
+* Update contributors
+
+## [2018-02-21] v1.3.1: v1.3.1
+
+* Improper argument splitting for dialog (#20)
+
+## [2017-12-13] v1.3.0: v1.3.0
 
 * Create the --disable-xrunning-check
 * Add XDG_VTNR support
