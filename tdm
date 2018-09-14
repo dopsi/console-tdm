@@ -125,6 +125,7 @@ fi
 # started from startx, so start session
 if "$xstart" ; then
     if [[ -f "${CONFDIR}/tdmexit" ]]; then
+        # shellcheck source=tdmexit
         . "${CONFDIR}/tdmexit"
     fi
     if [[ -x "/tmp/tdmdefault" ]]; then
@@ -148,6 +149,7 @@ fi
 
 # otherwise, run as the session chosen script
 if [[ -f "${CONFDIR}/tdminit" ]]; then
+    # shellcheck source=tdminit
     source "${CONFDIR}/tdminit"
 fi
 
