@@ -19,6 +19,10 @@
 
 VERSION=1.3.2
 
+xstart=false
+xrunning_check=true
+silent=false
+
 nulltype(){
     type "$1" > /dev/null 2>/dev/null
 }
@@ -36,8 +40,8 @@ function load_confdir_path() {
 
 
 fallback(){
-    if [[ -n $1 ]]; then
-        echo -e '\033[31;1m'"$1"'\033[0m'
+    if [ -n "$1" ]; then
+        $silent || echo -e '\033[31;1m'"$1"'\033[0m'
     fi
     exit 1
 }
@@ -66,6 +70,16 @@ SESSIONS=${CONFDIR}/sessions
 EXTRA=${CONFDIR}/extra
 SAVELAST=1
 
+eval set -- "$(
+    getopt -o h \
+    --long help \
+    --long xstart \
+    --long disable-xrunning-check \
+    --long silent \
+    -n "$(basename "$0")" -- "$@" || \
+    echo usage
+    )"
+
 if [ "$CONFDIR" == "$HOME/.tdm" ] ; then
     echo "Following tdm v1.3.0, the configuration files should be moved to '${XDG_CONFIG_HOME:-$HOME/.config}/tdm' in order to become XDG compliant"
     echo "Use 'tdmctl migrate' to automatically migrate your configuration to the new location"
@@ -77,8 +91,39 @@ if [ -z "$XDG_VTNR" ]; then
     export XDG_VTNR
 fi
 
+while [ $# -gt 0 ]; do
+    case "$1" in
+        '--xstart')
+            xstart=true
+        ;;
+        '--disable-xrunning-check')
+            xrunning_check=false
+        ;;
+        '--silent')
+            silent=true
+        ;;
+        '--help'|'-h')
+            usage 0
+        ;;
+        '--')
+            shift
+            break
+        ;;
+        *)
+            >&2 printf 'Whoops, option "%s" is not yet implemented!\n' "$1"
+            exit 42
+        ;;
+    esac
+    shift
+done
+
+if [ $# -gt 0 ]; then
+  >&2 echo 'Too many arguments.'
+  exit 2
+fi
+
 # started from startx, so start session
-if [[ -n $1 && $1 = "--xstart" ]]; then
+if "$xstart" ; then
     if [[ -f "${CONFDIR}/tdmexit" ]]; then
         . "${CONFDIR}/tdmexit"
     fi
@@ -89,18 +134,12 @@ if [[ -n $1 && $1 = "--xstart" ]]; then
     fi
 fi
 
-if [[ -n "$1" ]] && [[ "$1" == "--disable-xrunning-check" ]] ; then
-    disable_xrunning_check=true
-else
-    disable_xrunning_check=""
-fi
-
 clear
 # check for a 'good' tty
 (basename "$(tty)" |grep -q tty) || fallback "Invalid tty"
 
 # X started, exit
-[[ ! $disable_xrunning_check ]] && [[ "$(find /tmp/.X11-unix -type s | wc -l)" -gt 0 ]] && fallback 'X started.'
+$xrunning_check && [[ "$(find /tmp/.X11-unix -type s | wc -l)" -gt 0 ]] && fallback 'X started.'
 
 # build confdir
 if [ ! -d "${CONFDIR}" ]; then
