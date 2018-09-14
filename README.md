@@ -3,7 +3,9 @@
 [![AUR](https://img.shields.io/aur/version/console-tdm.svg)](https://aur.archlinux.org/packages/console-tdm)
 [![GitHub release](https://img.shields.io/github/tag/dopsi/console-tdm.svg)](https://github.com/dopsi/console-tdm/releases/latest)
 
-The TDM display manager is a wrapper script for `startx`.
+The TDM display manager is a wrapper script for `startx`. The main development branch is
+[`develop`](https://cgit.dopsi.ch/console-tdm/log/?h=develop). The
+[`master`](https://cgit.dopsi.ch/console-tdm/log/?h=master) branch is used for releases.
 
 It has a helper script, called `tdmctl` to manage tdm sessions. Each tdm session
 is a symlink to an executable script that will be called in place of the final
