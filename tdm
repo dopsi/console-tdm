@@ -65,6 +65,7 @@ CONFDIR="$(load_confdir_path)"
 SESSIONS=${CONFDIR}/sessions
 EXTRA=${CONFDIR}/extra
 SAVELAST=1
+STARTXARGS=
 
 if [ "$CONFDIR" == "$HOME/.tdm" ] ; then
     echo "Following tdm v1.3.0, the configuration files should be moved to '${XDG_CONFIG_HOME:-$HOME/.config}/tdm' in order to become XDG compliant"
@@ -204,11 +205,11 @@ elif [[ (-n $sid) && ($sid -lt $XID) && ($sid -ge 0) ]]; then
     else
         ln -sf "${xsessions[${sid}]}" "/tmp/tdmdefault"
     fi
-    startx
+    startx ${STARTXARGS}
 else
     echo "Unknown value, load default."
     if [ -x "${CONFDIR}/default" ]; then
-        startx
+        startx ${STARTXARGS}
     else
         fallback "Session not defined, fallback."
     fi
