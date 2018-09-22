@@ -24,5 +24,8 @@
 # Uncomment to show linux logo
 #linux_logo -L classic
 
+# Args passed along when calling startx
+#STARTXARGS=
+
 # Uncomment to start X without selecting a session
 #exec startx

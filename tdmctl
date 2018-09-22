@@ -123,11 +123,11 @@ case "$1" in
         ;;
     default)
         verify
-        if [ ! -L "$CONFDIR/default" ] ; then
-            echo "No default session found"
-            exit 1
-        fi
         if [ ! -n "$2" ]; then
+            if [ ! -L "$CONFDIR/default" ] ; then
+                echo "No default session found"
+                exit 1
+            fi
             echo "Checking $(readlink "$CONFDIR/default")"
             check "$(readlink "$CONFDIR/default")"
         elif [ -x "$CONFDIR/sessions/$2" ]; then

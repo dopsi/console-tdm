@@ -1,6 +1,15 @@
 # ChangeLog
 
-## [2018-07-05] v1.3.2: Version 1.3.2
+## [2018-09-22] v1.4.0: Version 1.4.0
+
+* bugfix: allow setting a default when none is set
+* Add silent flag
+* Add shellcheck directives
+* Add info about the dev branch
+* Add possibility to pass args to startx
+* Fix Markdown in readme
+
+## [2018-07-06] v1.3.2: Version 1.3.2
 
 * Fix disable_xrunning_check flag not working
 * Update contributors

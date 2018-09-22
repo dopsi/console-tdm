@@ -4,7 +4,7 @@ tdm \- a tiny display manager
 .SH SYNOPSIS
 .B
 tdm
-[\fB--xstart|--allow-multiple-logins\fR]
+[\fB--xstart|--disable-xrunning-check|--silent\fR]
 .TP
 .B
 tdmctl
@@ -23,6 +23,9 @@ execute the chosen session from \fI.xinitrc\fR.
 .TP
 .BR --disable-xrunning-check
 allow multiple logins once X is already started. By default, tdm will refuse to start if X is already running.
+.TP
+.BR --silent
+silences all error messages from TDM
 .SS tdmctl
 .TP
 .BR init
