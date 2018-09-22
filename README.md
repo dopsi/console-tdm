@@ -44,8 +44,10 @@ The dependencies are :
 
 1. To install `tdm` for your local user, run
 
-    tdmctl init
-    tdmctl add <session name> <executable path> [X(default)/extra]
+```shell
+tdmctl init
+tdmctl add <session name> <executable path> [X(default)/extra]
+```
 
 This will copy the tdm configuration directory to your home directory.
 
