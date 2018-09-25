@@ -139,7 +139,7 @@ case "$1" in
 
             if [ -x "$FILE" ]; then
                 echo "Setting default to $2"
-                ln -sf "$CONFDIR/sessions/$2" "$CONFDIR/default"
+                ln -sf "$FILE" "$CONFDIR/default"
             else
                 echo "tdmctl error: $2 is not available"
             fi
