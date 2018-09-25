@@ -130,11 +130,19 @@ case "$1" in
             fi
             echo "Checking $(readlink "$CONFDIR/default")"
             check "$(readlink "$CONFDIR/default")"
-        elif [ -x "$CONFDIR/sessions/$2" ]; then
-            echo "Setting default to $2"
-            ln -sf "$CONFDIR/sessions/$2" "$CONFDIR/default"
         else
-            echo "tdmctl error: $2 is not available"
+            if [[ "$2" == extra/* ]] ; then
+                FILE="$CONFDIR/$2"
+            else
+                FILE="$CONFDIR/sessions/$2"
+            fi
+
+            if [ -x "$FILE" ]; then
+                echo "Setting default to $2"
+                ln -sf "$CONFDIR/sessions/$2" "$CONFDIR/default"
+            else
+                echo "tdmctl error: $2 is not available"
+            fi
         fi
         ;;
     check)
