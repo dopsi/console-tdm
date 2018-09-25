@@ -1,5 +1,9 @@
 # ChangeLog
 
+## [2018-09-25] v1.4.1: Version 1.4.1
+
+* Allow extra sessions as default session
+
 ## [2018-09-22] v1.4.0: Version 1.4.0
 
 * bugfix: allow setting a default when none is set
