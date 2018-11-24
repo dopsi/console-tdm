@@ -22,6 +22,7 @@ VERSION="1.4.1"
 xstart=false
 xrunning_check=true
 silent=false
+disable_long_names=false
 
 nulltype(){
     type "$1" > /dev/null 2>/dev/null
@@ -77,6 +78,7 @@ eval set -- "$(
     --long xstart \
     --long disable-xrunning-check \
     --long silent \
+    --long disable-long-names \
     -n "$(basename "$0")" -- "$@" || \
     echo usage
     )"
@@ -105,6 +107,9 @@ while [ $# -gt 0 ]; do
         ;;
         '--help'|'-h')
             usage 0
+        ;;
+        '--disable-long-names')
+            disable_long_names=true
         ;;
         '--')
             shift
@@ -192,10 +197,12 @@ else
 fi
 
 if [ -d "${EXTRA}" ]; then
+    extra_marker="extra/"
+    $disable_long_names && extra_marker=""
     for script in "${EXTRA}"/*; do
         if [ -x "${script}" ] && valid_item "${script}" ; then
             xsessions[$TOTAL]="${script}"
-            NAME="extra/$(basename "${script}")"
+            NAME="$extra_marker$(basename "${script}")"
             prglist=("${prglist[@]}" "${TOTAL}" "${NAME}")
             (( TOTAL=TOTAL+1 ))
         fi
