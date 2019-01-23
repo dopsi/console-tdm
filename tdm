@@ -23,6 +23,7 @@ xstart=false
 xrunning_check=true
 silent=false
 disable_long_names=false
+skip_single_session=false
 
 nulltype(){
     type "$1" > /dev/null 2>/dev/null
@@ -79,6 +80,7 @@ eval set -- "$(
     --long disable-xrunning-check \
     --long silent \
     --long disable-long-names \
+    --long skip-single-session \
     -n "$(basename "$0")" -- "$@" || \
     echo usage
     )"
@@ -110,6 +112,9 @@ while [ $# -gt 0 ]; do
         ;;
         '--disable-long-names')
             disable_long_names=true
+        ;;
+        '--skip-single-session')
+            skip_single_session=true
         ;;
         '--')
             shift
@@ -242,7 +247,12 @@ if ! nulltype dialog; then
 elif [ ! "${TDMUI}" == "tdm_text" ]; then
     TDMUI=tdm_curses
 fi
-${TDMUI}
+echo "TOTOAL $TOTAL"
+if [ "$skip_single_session" == "true" ] && [ "$TOTAL" -eq 1 ] ; then
+    sid=0
+else
+    ${TDMUI}
+fi
 
 rm -f /tmp/tdmdefault
 if [[ (-n $sid) && ($sid -lt $TOTAL) && ($sid -ge $XID) ]]; then
