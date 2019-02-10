@@ -150,8 +150,9 @@ clear
 # check for a 'good' tty
 (basename "$(tty)" |grep -q tty) || fallback "Invalid tty"
 
-# X started, exit
-$xrunning_check && [[ "$(find /tmp/.X11-unix -type s | wc -l)" -gt 0 ]] && fallback 'X started.'
+# X started, do not show X session options in the menu
+hide_xsessions=false
+$xrunning_check && [[ "$(find /tmp/.X11-unix -type s | wc -l)" -gt 0 ]] && hide_xsessions=true
 
 # build confdir
 if [ ! -d "${CONFDIR}" ]; then
@@ -182,7 +183,7 @@ else
     DEFAULTWM=
 fi
 
-if [ -d "${SESSIONS}" ]; then
+if [ -d "${SESSIONS}" ] && ! $hide_xsessions; then
     for script in "${SESSIONS}"/*; do
         if [ -x "${script}" ] && valid_item "${script}" ; then
             xsessions[$XID]="${script}"
@@ -195,7 +196,7 @@ if [ -d "${SESSIONS}" ]; then
             (( TOTAL=TOTAL+1 ))
         fi
     done
-else
+elif ! [ -d "${SESSIONS}" ]; then
     echo "${SESSIONS} doesn't exist."
     echo "Making this directory."
     mkdir -p "${SESSIONS}"
@@ -215,6 +216,7 @@ if [ -d "${EXTRA}" ]; then
 fi
 
 if [ $TOTAL -eq 0 ]; then
+    $hide_xsessions && fallback "X started."
     fallback "No sessions found."
 fi
 
