@@ -115,6 +115,14 @@ Migrate configuration to XDG compliant directory
 
     tdmctl migrate
 
+## Troubleshooting
+
+### The `dialog` interface is not shown
+
+Make sure the `dialog` program is installed (the bash `type` builtin, when
+invoked with `type dialog`, should return something along the lines of
+`/usr/bin/dialog`).
+
 ## Versioning
 
 This project follows the semantic versioning guidelines provided at
