@@ -91,11 +91,6 @@ if [ "$CONFDIR" == "$HOME/.tdm" ] ; then
     echo "Support for the old configuration directory ($CONFDIR) will be dropped in tdm 2.x.y"
 fi
 
-if [ -z "$XDG_VTNR" ]; then
-    XDG_VTNR="$(tty | sed -n -e 's|^/dev/tty\([1-9][0-9]*\)|\1|p')"
-    export XDG_VTNR
-fi
-
 while [ $# -gt 0 ]; do
     case "$1" in
         '--xstart')
